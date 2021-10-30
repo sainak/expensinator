@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from os import getenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,8 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-kk8^_8)@qn4vl29+9s#_i-+4+s+os*%fid9db&g1&#8r9lrd77"
-
+SECRET_KEY = getenv("SECRET_KEY", "insecure")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -37,11 +37,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # third party
+    "rest_framework",
+    "corsheaders",
+    "djangoql",
+    "debug_toolbar",
+    "drf_yasg",
+    "django_filters",
+    # local
     "accounts",
     "expenses",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -127,3 +137,9 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
+
+
+if getenv("HEROKU_ENVIRONMENT"):
+    import django_heroku
+
+    django_heroku.settings(locals())
