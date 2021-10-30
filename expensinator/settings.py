@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # third party
-    "rest_framework",
+    "graphene_django",
     "corsheaders",
     "djangoql",
     "debug_toolbar",
