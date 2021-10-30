@@ -62,7 +62,7 @@ reinit-db: clean-db init-db ## Re-initialize database.
 
 reinit: clean init reinit-db ## Re-initialize Dev environment.
 
-superuser: ## Create superuser.
+su: ## Create superuser.
 	@echo "--> Creating superuser"
 	@python manage.py createsuperuser
 

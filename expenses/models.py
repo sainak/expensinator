@@ -23,4 +23,4 @@ class Expense(models.Model):
 
     class Meta:
         verbose_name_plural = "Expenses"
-        ordering = "-created_at"
+        ordering = ("-created_at",)
