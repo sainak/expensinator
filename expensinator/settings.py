@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "djangoql",
     "debug_toolbar",
-    "drf_yasg",
     "django_filters",
     # local
     "accounts",
