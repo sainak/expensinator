@@ -7,3 +7,7 @@ class ExpenseListView(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy("login")
     redirect_field_name = "next"
     template_name = "expenses/expense_list.html"
+    extra_context = {
+        "title": "Expenses | Expensinator",
+        "activeNavId": "navItemExpenses",
+    }
