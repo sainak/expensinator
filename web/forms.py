@@ -14,10 +14,8 @@ class SignUpForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
 
     error_messages = {
-        'invalid_login': _(
-            "Invalid credentials. "
-        ),
-        'inactive': _("This account is inactive."),
+        "invalid_login": _("Invalid credentials. "),
+        "inactive": _("This account is inactive."),
     }
 
     class Meta:
