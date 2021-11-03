@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
@@ -12,10 +13,12 @@ class SignUpForm(UserCreationForm):
 
 class LoginForm(AuthenticationForm):
 
-    required_css_class = "required"
-
-    def confirm_login_allowed(self, user):
-        super().confirm_login_allowed(user)
+    error_messages = {
+        'invalid_login': _(
+            "Invalid credentials. "
+        ),
+        'inactive': _("This account is inactive."),
+    }
 
     class Meta:
         model = User

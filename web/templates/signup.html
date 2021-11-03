@@ -19,7 +19,7 @@
 {% block content_body %}
 
 
-<div class="d-flex justify-content-center align-items-center" style="min-height:60vh;">
+<div class="d-flex justify-content-center align-items-center" style="min-height:70vh;">
   <div class="card shadow align-middle">
     <article class="card-body">
       <h4 class="card-title text-center mb-4 mt-1">SignUp</h4>
@@ -32,12 +32,17 @@
             maxlength="150" id="id_first_name">
           <input type="text" class="form-control" placeholder="Last Name" aria-label="Last Name" name="last_name"
             maxlength="150" id="id_last_name">
+
         </div>
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 has-validation">
           <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" name="username"
-            maxlength="150" autofocus="" required="" id="id_username">
+          <input type="text" class="form-control {% if form.errors.username %}is-invalid{% endif %}"
+            placeholder="Username" aria-label="Username" name="username" maxlength="150" autofocus="" required=""
+            id="id_username">
+          <div class="invalid-feedback">
+            {{ form.errors.username }}
+          </div>
         </div>
 
         <div class="input-group mb-3">
@@ -50,9 +55,7 @@
             name="password2" autocomplete="new-password" required="" id="id_password2">
         </div>
 
-        {% for err in form.errors %}
-        <span class="invalid-input">{{ err }}</span>
-        {% endfor %}
+
 
         <div class="form-group d-grid gap-2 mb-2">
           <button type="submit" class="btn btn-primary btn-block">SignUp</button>

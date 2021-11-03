@@ -20,9 +20,9 @@
 
 {% block content_body %}
 
-<div class="d-flex justify-content-center align-items-center" style="min-height:60vh;">
+<div class="d-flex justify-content-center align-items-center" style="min-height:70vh;">
   <div class="card shadow align-middle">
-    <article class="card-body" style="min-width:22rem;">
+    <article class="card-body">
       <h4 class="card-title text-center mb-4 mt-1">Login</h4>
       <hr>
       <form action="{% url 'login' %}" method="post">
@@ -39,6 +39,15 @@
           <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password"
             autocomplete="current-password" required="" id="id_password">
         </div>
+        {% if form.non_field_errors %}
+        <div class="invalid-feedback" style="display: block;">
+          {% for error in form.non_field_errors %}
+          <p >
+            {{ error }}
+          </p>
+          {% endfor %}
+        </div>
+        {% endif %}
         <div class="form-group d-grid gap-2 mb-2">
           <button type="submit" class="btn btn-primary btn-block"> Login </button>
         </div>
