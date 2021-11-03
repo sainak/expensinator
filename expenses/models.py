@@ -2,8 +2,17 @@ from django.conf import settings
 from django.db import models
 
 
+class LCharField(models.CharField):
+    def __init__(self, *args, **kwargs):
+        super(LCharField, self).__init__(*args, **kwargs)
+
+    def get_prep_value(self, value):
+        return str(value).lower()
+
+
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = LCharField(max_length=50)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -11,6 +20,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
+        unique_together = ("name", "owner")
 
 
 class Expense(models.Model):
