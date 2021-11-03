@@ -22,9 +22,15 @@
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item ">
-          <a id="navItemProfile" class="nav-link" href="#">{{ request.user.first_name }}</a>
+          <a id="navItemProfile" class="nav-link" href="#">
+            {% if request.user.first_name %}
+            {{ request.user.first_name }}
+            {% else %}
+            {{ request.user.username }}
+            {% endif %}
+          </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item border border-primary rounded-3">
           <a id="navItemLogout" class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
       </ul>
