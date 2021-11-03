@@ -11,10 +11,11 @@ class ExpenseListView(LoginRequiredMixin, ListView):
     template_name = "expenses/expense_list.html"
     paginate_by = 15
     context_object_name = "expenses_list"
+    page_name = "Expenses"
     extra_context = {
-        "title": "Expenses | Expensinator",
-        "activeNavId": "navItemExpenses",
-        "currency": "₹"
+        "title": page_name,
+        "activeNavId": f"navItem{page_name}",
+        "currency": "₹",
     }
 
     def get_queryset(self):

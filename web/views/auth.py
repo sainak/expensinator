@@ -9,9 +9,10 @@ class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy("login")
     template_name = "auth/signup.html"
+    page_name = "SignUp"
     extra_context = {
-        "title": "SignUp | Expensinator",
-        "activeNavId": "navItemSignUp",
+        "title": page_name,
+        "activeNavId": f"navItem{page_name}",
     }
 
 
@@ -19,9 +20,10 @@ class LoginView(contrib_views.LoginView):
     form_class = LoginForm
     template_name = "auth/login.html"
     next_page = reverse_lazy("home")
+    page_name = "Login"
     extra_context = {
-        "title": "Login | Expensinator",
-        "activeNavId": "navItemLogin",
+        "title": page_name,
+        "activeNavId": f"navItem{page_name}",
     }
 
 
