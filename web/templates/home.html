@@ -4,21 +4,13 @@
 
 
 {% block nav_items %}
-  {% if user.is_authenticated %}
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'login' %}">Login</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'signup' %}">SignUp</a>
-  </li>
-  {% else %}
 
-  {% endif %}
 {% endblock %}
 
 
 {% block content_body %}
 
 {{ request.user }}
+{{ app_name }}
 
 {% endblock %}
