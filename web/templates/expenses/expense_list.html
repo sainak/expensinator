@@ -3,20 +3,23 @@
 {% block content_body %}
 <div class="d-flex justify-content-center align-items-center">
   <div class="card shadow container-fixed container-fixed-md mt-4" style="padding:0;">
+
+     <!-- convert this to grid -->
     <div class="list-group">
-      <div class="list-group list-group-horizontal">
-        <a href="#" class="list-group-item list-group-item-action">Name</a>
-        <a href="#" class="list-group-item list-group-item-action">Time</a>
-        <a href="#" class="list-group-item list-group-item-action">Amount</a>
+      <div class="d-flex ">
+        <div class="p-2 flex-grow-1 list-group-item-action border">Name</div>
+        <div class="p-2 flex-shrink-0 border">Time</div>
+        <div class="p-2 flex-shrink-0 border">Amount</div>
       </div>
       {% for expense in expenses_list %}
-      <div class="list-group list-group-horizontal">
-        <a href="#" class="list-group-item list-group-item-action">{{ expense.name }}</a>
-        <a href="#" class="list-group-item list-group-item-action">{{ expense.created_at }}</a>
-        <a href="#" class="list-group-item list-group-item-action">{{currency}} {{ expense.amount }}</a>
+      <div class="d-flex ">
+        <a class="p-2 flex-grow-1 list-group-item-action border">{{ expense.name }}</a>
+        <div class="p-2 flex-shrink-0 border">{{ expense.created_at }}</div>
+        <div class="p-2 flex-shrink-0 border">{{currency}} {{ expense.amount }}</div>
       </div>
       {% endfor %}
     </div>
+
   </div>
 </div>
 
