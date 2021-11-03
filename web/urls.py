@@ -1,9 +1,10 @@
 from django.urls import path
 
-from .views import HomeView, LoginView, SignUpView
+from .views import auth, main, expenses
 
 urlpatterns = [
-    path("", HomeView.as_view(), name="home"),
-    path("signup", SignUpView.as_view(), name="signup"),
-    path("login", LoginView.as_view(), name="login"),
+    path("", main.HomeView.as_view(), name="home"),
+    path("signup/", auth.SignUpView.as_view(), name="signup"),
+    path("login/", auth.LoginView.as_view(), name="login"),
+    path("expenses/", expenses.ExpenseListView.as_view(), name="expense-list"),
 ]

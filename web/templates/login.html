@@ -27,7 +27,7 @@
       <hr>
       <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
-
+        <input type="hidden" name="next" value="{{ next }}">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1"><i class="fa fa-user"></i></span>
           <input type="text" class="form-control" placeholder="Username" aria-label="Username" name="username"
