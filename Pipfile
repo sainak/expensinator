@@ -12,7 +12,7 @@ django-heroku = "==0.3.1"
 djangoql = "==0.15.3"
 gunicorn = "==20.1.0"
 psycopg2 = "==2.9.1"
-graphene-django = "==2.15.0"
+graphene-django = "==3.0.0b7"
 
 [dev-packages]
 ipython = "*"

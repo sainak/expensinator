@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ed451ddabeac139abbe5d27a97e38f0161752df1fbbe0bc8b18413696e0e93e2"
+            "sha256": "f6589b7176f948731efbcf6c9f9627ea0a7c2cb286d977f106c38d597762439d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,10 +18,10 @@
     "default": {
         "aniso8601": {
             "hashes": [
-                "sha256:513d2b6637b7853806ae79ffaca6f3e8754bdd547048f5ccc1420aec4b714f1e",
-                "sha256:d10a4bf949f619f719b227ef5386e31f49a2b6d453004b21f02661ccc8670c7b"
+                "sha256:1d2b7ef82963909e93c4f24ce48d4de9e66009a21bf1c1e1c85bdd0812fe412f",
+                "sha256:72e3117667eedf66951bb2d93f4296a56b94b078a8a95905a052611fb3f1b973"
             ],
-            "version": "==7.0.0"
+            "version": "==9.0.1"
         },
         "asgiref": {
             "hashes": [
@@ -88,32 +88,34 @@
         },
         "graphene": {
             "hashes": [
-                "sha256:3d446eb1237c551052bc31155cf1a3a607053e4f58c9172b83a1b597beaa0868",
-                "sha256:b9f2850e064eebfee9a3ef4a1f8aa0742848d97652173ab44c82cc8a62b9ed93"
+                "sha256:a6ae2ae27ab7021acb4642bb6c9460f270595e76a67e03a69bddf8e94d800212",
+                "sha256:ed7a78b0ae1d12961ce8f150cca81877a2b72e1258ca43c404952faa0cfefee6"
             ],
-            "version": "==2.1.9"
+            "version": "==3.0b8"
         },
         "graphene-django": {
             "hashes": [
-                "sha256:02671d195f0c09c8649acff2a8f4ad4f297d0f7d98ea6e6cdf034b81bab92880",
-                "sha256:b78c9b05bc899016b9cc5bf13faa1f37fe1faa8c5407552c6ddd1a28f46fc31a"
+                "sha256:0f226ec7db744a54dbc5d6db2aa52d945701ae800e1055046dec2b76a539550a",
+                "sha256:b1a4ce1a2227b1e77f67f0bc2fadd59c1d05016cb9aced45ab65f8612fba2c87"
             ],
             "index": "pypi",
-            "version": "==2.15.0"
+            "version": "==3.0.0b7"
         },
         "graphql-core": {
             "hashes": [
-                "sha256:44c9bac4514e5e30c5a595fac8e3c76c1975cae14db215e8174c7fe995825bad",
-                "sha256:aac46a9ac524c9855910c14c48fc5d60474def7f99fd10245e76608eba7af746"
+                "sha256:c78d09596d347e1cffd266c5384abfedf43ed1eae08729773bebb3d527fe5a14",
+                "sha256:e65975b6a13878f9113a1fa5320760585b522d139944e005936b1b8358d0651a"
             ],
-            "version": "==2.3.2"
+            "markers": "python_version >= '3.6' and python_version < '4'",
+            "version": "==3.1.6"
         },
         "graphql-relay": {
             "hashes": [
-                "sha256:870b6b5304123a38a0b215a79eace021acce5a466bf40cd39fa18cb8528afabb",
-                "sha256:ac514cb86db9a43014d7e73511d521137ac12cf0101b2eaa5f0a3da2e10d913d"
+                "sha256:2cda0ac0199dd56c28ca4f6e0381cdcf5787809c06d1507df3c2a738f9ad846f",
+                "sha256:70d5a7ee5995ea7c2a9a37e51227663b1a464f1f40e98fdde950be5415dfe0b4"
             ],
-            "version": "==2.0.1"
+            "markers": "python_version >= '3.6' and python_version < '4'",
+            "version": "==3.1.0"
         },
         "gunicorn": {
             "hashes": [
@@ -150,21 +152,6 @@
             ],
             "index": "pypi",
             "version": "==2.9.1"
-        },
-        "rx": {
-            "hashes": [
-                "sha256:13a1d8d9e252625c173dc795471e614eadfe1cf40ffc684e08b8fff0d9748c23",
-                "sha256:7357592bc7e881a95e0c2013b73326f704953301ab551fbc8133a6fadab84105"
-            ],
-            "version": "==1.6.1"
-        },
-        "singledispatch": {
-            "hashes": [
-                "sha256:bc77afa97c8a22596d6d4fc20f1b7bdd2b86edc2a65a4262bdd7cc3cc19aa989",
-                "sha256:c1a4d5c1da310c3fd8fccfb8d4e1cb7df076148fd5d858a819e37fffe44f3092"
-            ],
-            "markers": "python_version >= '2.6'",
-            "version": "==3.7.0"
         },
         "six": {
             "hashes": [
