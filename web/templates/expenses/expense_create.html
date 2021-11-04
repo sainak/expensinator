@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+{% block content_body %}
+<div class="d-flex justify-content-center align-items-center">
+  <div class="card shadow container-fixed container-fixed-md mt-4" style="padding:0;">
+
+    {{ form.as_p }}
+
+  </div>
+</div>
+
+{% if is_paginated %}
+{% include "nav_paginator.html" %}
+{% endif %}
+
+{% endblock %}

@@ -1,10 +1,11 @@
+from django import forms
 from django_filters import (
+    DateRangeFilter,
     FilterSet,
     ModelMultipleChoiceFilter,
     OrderingFilter,
-    DateRangeFilter,
 )
-from django import forms
+
 from expenses.models import Category, Expense
 
 
