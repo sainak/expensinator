@@ -11,17 +11,14 @@
       </button>
     </div>
 
-    <!-- convert this to grid -->
-    <div class="list-group">
-      <div class="d-flex ">
-        <div class="p-2 flex-grow-1 border">Name</div>
+    {% for category in categories_list %}
+    <div class="row ms-0 me-0 border">
+      <div class="col-sm-7 p-2 border-bottom">
+        <a class="stretched-link text-decoration-none text-dark" href="{{ category.get_absolute_url }}">
+          {{ category.name }}</a>
       </div>
-      {% for category in categories_list %}
-      <div class="d-flex ">
-        <a class="p-2 flex-grow-1 list-group-item-action border">{{ category.name }}</a>
-      </div>
-      {% endfor %}
     </div>
+    {% endfor %}
 
   </div>
 </div>

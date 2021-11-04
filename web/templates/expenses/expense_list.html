@@ -49,20 +49,23 @@
       </button>
     </div>
 
-    <!-- convert this to grid -->
-    <div class="list-group">
-      <div class="d-flex ">
-        <div class="p-2 flex-grow-1 border">Name</div>
-        <div class="p-2 flex-shrink-0 border">Time</div>
-        <div class="p-2 flex-shrink-0 border">Amount</div>
-      </div>
+    <div class="p-3">
       {% load tz %}
       {% localtime on %}
       {% for expense in expenses_list %}
-      <div class="d-flex">
-        <a class="p-2 flex-grow-1 list-group-item-action border">{{ expense.name }}</a>
-        <div class="p-2 flex-shrink-0 border">{{ expense.created_at }}</div>
-        <div class="p-2 flex-shrink-0 border">{{currency}} {{ expense.amount }}</div>
+      <div class="border">
+        <div class="row ms-0 me-0">
+          <div class="col-sm-7 p-2 border-bottom">
+            <a class="stretched-link text-decoration-none text-dark" href="{{ expense.get_absolute_url }}">
+              {{ expense.name}}</a>
+          </div>
+          <div class="col p-2 text-end border-end border-bottom">
+            {{ expense.created_at|date:"d/m/y h:m A" }}
+          </div>
+          <div class="col p-2 text-end border-bottom">
+            {{ expense.amount|floatformat:2 }}
+          </div>
+        </div>
       </div>
       {% endfor %}
       {% endlocaltime %}
