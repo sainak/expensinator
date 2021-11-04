@@ -1,11 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView
+from django_filters.views import FilterView
 
 from expenses.models import Expense
 
+from ..filters import ExpenseFilter
 
-class ExpenseListView(LoginRequiredMixin, ListView):
+
+class ExpenseListView(LoginRequiredMixin, FilterView):
+
+    filterset_class = ExpenseFilter
 
     login_url = reverse_lazy("login")
     template_name = "expenses/expense_list.html"
