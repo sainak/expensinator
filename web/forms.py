@@ -1,7 +1,7 @@
+from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import fields
-from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from expenses.models import Category, Expense
