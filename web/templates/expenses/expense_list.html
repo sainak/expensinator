@@ -17,7 +17,7 @@
   <div class="card shadow container-fixed container-fixed-md mt-4" style="padding:0;">
 
     <div class="card m-3">
-      <a href="#filtersCard" class="text-decoration-none card-header" id="headingExampleTwo" data-bs-toggle="collapse" >
+      <a href="#filtersCard" class="text-decoration-none card-header" id="headingExampleTwo" data-bs-toggle="collapse">
         <i class="fa fa-chevron-down float-end"></i>
         Filters
       </a>
@@ -56,6 +56,12 @@
       </div>
     </div>
 
+    <div class="d-grid gap-2 m-3 mt-0">
+      <button class="btn btn-primary btn-block" onclick="location.href=`{% url 'expenses-create' %}`">
+        <i class="fa fa-plus"></i> &nbsp; Add Expense
+      </button>
+    </div>
+
     <!-- convert this to grid -->
     <div class="list-group">
       <div class="d-flex ">
@@ -63,13 +69,16 @@
         <div class="p-2 flex-shrink-0 border">Time</div>
         <div class="p-2 flex-shrink-0 border">Amount</div>
       </div>
+      {% load tz %}
+      {% localtime %}
       {% for expense in expenses_list %}
-      <div class="d-flex ">
+      <div class="d-flex">
         <a class="p-2 flex-grow-1 list-group-item-action border">{{ expense.name }}</a>
         <div class="p-2 flex-shrink-0 border">{{ expense.created_at }}</div>
         <div class="p-2 flex-shrink-0 border">{{currency}} {{ expense.amount }}</div>
       </div>
       {% endfor %}
+      {% endlocaltime %}
     </div>
 
   </div>
@@ -77,7 +86,7 @@
 
 {% include "nav_paginator.html" %}
 
-{% endblock %}
+{% endblock content_body %}
 
 {% block extra_scripts %}
 <script type="text/javascript">

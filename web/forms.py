@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import fields
-from django.forms import ModelForm
+from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from expenses.models import Category, Expense
@@ -27,7 +27,15 @@ class LoginForm(AuthenticationForm):
         fields = ("username", "password")
 
 
-class AddExpenseForm(ModelForm):
+class AddExpenseForm(forms.ModelForm):
+
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.widgets.SelectMultiple(attrs={"class": "form-select"}),
+        required=False,
+    )
+
+
     class Meta:
         model = Expense
         fields = (
