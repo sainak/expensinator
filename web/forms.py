@@ -36,3 +36,9 @@ class AddExpenseForm(ModelForm):
             "categories",
             "created_at",
         )
+
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+        self.fields["categories"].queryset = Category.objects.filter(owner=self.user)

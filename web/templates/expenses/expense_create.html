@@ -5,7 +5,17 @@
 <div class="d-flex justify-content-center align-items-center">
   <div class="card shadow container-fixed container-fixed-md mt-4" style="padding:0;">
 
-    {{ form.as_p }}
+    <form action="" method="post">
+      {% csrf_token %}
+
+      {{ form }}
+
+      <button type="submit" class="btn btn-primary btn-block">
+        <i class="fa fa-save"></i>
+        save
+      </button>
+    </form>
+
 
   </div>
 </div>

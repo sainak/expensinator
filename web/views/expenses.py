@@ -32,9 +32,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
 
     template_name = "expenses/expense_create.html"
     form_class = AddExpenseForm
-
-    next_page = reverse_lazy("expenses-list")
-    page_name = "Login"
+    success_url = reverse_lazy("expenses-list")
     page_name = "New Expense"
     extra_context = {
         "title": page_name,
@@ -42,6 +40,14 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
         "currency": "₹",
     }
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
 class CategoriesListView(LoginRequiredMixin, ListView):
 
