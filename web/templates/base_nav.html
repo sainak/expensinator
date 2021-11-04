@@ -17,7 +17,7 @@
           <a id="navItemExpenses" class="nav-link" href="{% url 'expenses-list' %}">Expenses</a>
         </li>
         <li class="nav-item ">
-          <a id="navItemCategories" class="nav-link" href="{% url 'expenses-list' %}">Categories</a>
+          <a id="navItemCategories" class="nav-link" href="{% url 'categories-list' %}">Categories</a>
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
@@ -30,7 +30,7 @@
             {% endif %}
           </a>
         </li>
-        <li class="nav-item border border-primary rounded-3">
+        <li class="nav-item">
           <a id="navItemLogout" class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
       </ul>
