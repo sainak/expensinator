@@ -1,5 +1,10 @@
-from django_filters import FilterSet, ModelMultipleChoiceFilter, OrderingFilter, DateFromToRangeFilter, DateRangeFilter
-
+from django_filters import (
+    FilterSet,
+    ModelMultipleChoiceFilter,
+    OrderingFilter,
+    DateRangeFilter,
+)
+from django import forms
 from expenses.models import Category, Expense
 
 
@@ -10,14 +15,22 @@ def categories(request):
 
 
 class ExpenseFilter(FilterSet):
-    categories = ModelMultipleChoiceFilter(queryset=categories, label="Category")
+    categories = ModelMultipleChoiceFilter(
+        queryset=categories,
+        label="Category",
+        widget=forms.SelectMultiple(attrs={"class": "form-select"}),
+        distinct=True,
+    )
     o = OrderingFilter(
         fields=(("created_at", "time"),),
         field_labels={
             "created_at": "Created at",
         },
+        # custom widget is broken in this filter
     )
-    created_at = DateRangeFilter()
+    created_at = DateRangeFilter(
+        widget=forms.Select(attrs={"class": "form-select"}), empty_label="All"
+    )
 
     class Meta:
         model = Expense

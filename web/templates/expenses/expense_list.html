@@ -1,14 +1,60 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+<style>
+  .card-header .fa {
+    transition: .3s transform ease-in-out;
+  }
+
+  .card-header .collapsed .fa {
+    transform: rotate(90deg);
+  }
+</style>
+{% endblock %}
+
 {% block content_body %}
 <div class="d-flex justify-content-center align-items-center">
   <div class="card shadow container-fixed container-fixed-md mt-4" style="padding:0;">
 
+    <div class="card m-3">
+      <a href="#filtersCard" class="text-decoration-none card-header" id="headingExampleTwo" data-bs-toggle="collapse" >
+        <i class="fa fa-chevron-down float-end"></i>
+        Filters
+      </a>
 
-    <form action="" method="get">
-      {{ filter.form.as_p }}
-      <input type="submit" />
-    </form>
+      <div id="filtersCard" class="collapse" aria-labelledby="headingExampleTwo"
+        data-bs-parent="#collapseIndicatorExampleOne">
+        <div class="card-body">
+
+          <form action="" method="get">
+            <div class="row ">
+              <div class="col-sm input-group mb-3">
+                <label class="input-group-text" for="id_categories">Categories</label>
+                {{ filter.form.categories }}
+              </div>
+              <div class="col-sm">
+                <div class="input-group mb-3">
+                  <label class="input-group-text" for="id_o">Sort</label>
+                  {{ filter.form.o }}
+                </div>
+                <div class="input-group mb-3">
+                  <label class="input-group-text" for="id_created_at">Time</label>
+                  {{ filter.form.created_at }}
+                </div>
+                <div class="col d-grid">
+                  <div class="btn-group mb-3" role="group">
+                    <button type="button" onclick="location.href=`{% url 'expenses-list' %}`"
+                      class="btn btn-block btn-danger">Reset</button>
+                    <button type="submit" class="btn btn-block btn-primary">Filter</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
 
     <!-- convert this to grid -->
     <div class="list-group">
@@ -31,4 +77,12 @@
 
 {% include "nav_paginator.html" %}
 
+{% endblock %}
+
+{% block extra_scripts %}
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#id_o').addClass("form-select");
+  });
+</script>
 {% endblock %}
