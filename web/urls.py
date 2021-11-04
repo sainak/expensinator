@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import auth, expenses, main
+from .views import auth, expenses, main, analytics
 
 urlpatterns = [
     path("", main.HomeView.as_view(), name="home"),
@@ -15,4 +15,5 @@ urlpatterns = [
         expenses.CategoriesCreateView.as_view(),
         name="categories-create",
     ),
+    path("analytics/", analytics.AnalyticsView.as_view(), name="analytics-list"),
 ]
