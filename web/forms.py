@@ -35,7 +35,6 @@ class AddExpenseForm(forms.ModelForm):
         required=False,
     )
 
-
     class Meta:
         model = Expense
         fields = (
@@ -45,8 +44,18 @@ class AddExpenseForm(forms.ModelForm):
             "created_at",
         )
 
-
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         super().__init__(*args, **kwargs)
         self.fields["categories"].queryset = Category.objects.filter(owner=self.user)
+
+
+class AddCategoryForm(forms.ModelForm):
+
+    name = forms.CharField(
+        widget=forms.widgets.TextInput(attrs={"class": "form-input"}),
+    )
+
+    class Meta:
+        model = Category
+        fields = ("name",)

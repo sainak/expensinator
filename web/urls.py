@@ -10,4 +10,5 @@ urlpatterns = [
     path("expenses/", expenses.ExpenseListView.as_view(), name="expenses-list"),
     path("expenses/new/", expenses.ExpenseCreateView.as_view(), name="expenses-create"),
     path("categories/", expenses.CategoriesListView.as_view(), name="categories-list"),
+    path("categories/new/", expenses.CategoriesCreateView.as_view(), name="categories-create"),
 ]

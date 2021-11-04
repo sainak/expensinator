@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block content_body %}
+<div class="d-flex justify-content-center align-items-center">
+  <div class="card shadow container-fixed container-fixed-md mt-4">
+    <form class="p-3" action="" method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_name">Name:</label>
+        <input type="text" class="form-control" id="id_name" name="name" maxlength="50" required>
+      </div>
+      <div class="d-grid mb-3">
+        <button type="submit" class="btn btn-primary btn-block">
+          <i class="fa fa-save"></i> &nbsp; SAVE
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+

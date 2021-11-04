@@ -12,8 +12,6 @@ from ..forms import AddExpenseForm
 class ExpenseListView(LoginRequiredMixin, FilterView):
 
     filterset_class = ExpenseFilter
-
-    login_url = reverse_lazy("login")
     template_name = "expenses/expense_list.html"
     paginate_by = 20
     context_object_name = "expenses_list"
@@ -42,16 +40,16 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs.update({'user': self.request.user})
+        kwargs.update({"user": self.request.user})
         return kwargs
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+
 class CategoriesListView(LoginRequiredMixin, ListView):
 
-    login_url = reverse_lazy("login")
     template_name = "expenses/categories_list.html"
     paginate_by = 20
     context_object_name = "categories_list"
@@ -63,3 +61,20 @@ class CategoriesListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Category.objects.filter(owner=self.request.user)
+
+
+class CategoriesCreateView(LoginRequiredMixin, CreateView):
+
+    template_name = "expenses/categories_create.html"
+    model = Category
+    fields = ["name"]
+    success_url = reverse_lazy("categories-list")
+    page_name = "New Category"
+    extra_context = {
+        "title": page_name,
+        "activeNavId": "navItemCategories",
+    }
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
