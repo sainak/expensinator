@@ -21,6 +21,7 @@ class ExpenseListView(LoginRequiredMixin, FilterView):
         "title": page_name,
         "activeNavId": f"navItem{page_name}",
         "currency": "₹",
+        "opacity" : "95",
     }
 
     def get_queryset(self):
@@ -60,6 +61,7 @@ class CategoriesListView(LoginRequiredMixin, ListView):
     extra_context = {
         "title": page_name,
         "activeNavId": f"navItem{page_name}",
+        "opacity" : "95",
     }
 
     def get_queryset(self):
