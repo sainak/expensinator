@@ -60,7 +60,9 @@ class CategoriesListView(LoginRequiredMixin, ListView):
     }
 
     def get_queryset(self):
-        return Category.objects.filter(owner=self.request.user)
+        return Category.objects.filter(owner=self.request.user).select_related(
+            "category"
+        )
 
 
 class CategoriesCreateView(LoginRequiredMixin, CreateView):
