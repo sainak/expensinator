@@ -1,4 +1,6 @@
 from django.views.generic import TemplateView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 
 class HomeView(TemplateView):
@@ -8,3 +10,8 @@ class HomeView(TemplateView):
         "title": page_name,
         "activeNavId": f"navItem{page_name}",
     }
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(reverse_lazy("expenses-list"))
+        return super().get(request, *args, **kwargs)
