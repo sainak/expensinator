@@ -11,14 +11,18 @@
       </button>
     </div>
 
-    {% for category in categories_list %}
-    <div class="row ms-0 me-0 border">
-      <div class="col-sm-7 p-2 border-bottom">
-        <a class="text-decoration-none text-dark" href="{{ category.get_absolute_url }}">
-          {{ category.name }}</a>
+    <div class="p-3">
+      {% for category in categories_list %}
+      <div class="row ms-0 me-0 border">
+        <div class="col-sm-7 p-2 border-bottom">
+          <a class="text-decoration-none text-dark" href="{{ category.get_absolute_url }}">
+            <i class="fas fa-circle" style="color: {{ category.color }};"></i> &nbsp;
+            {{ category.name }}
+          </a>
+        </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
 
   </div>
 </div>

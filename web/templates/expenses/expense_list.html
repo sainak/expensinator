@@ -57,7 +57,9 @@
         <div class="row ms-0 me-0">
           <div class="col-sm-7 p-2 border-bottom">
             <a class="text-decoration-none text-dark" href="{{ expense.get_absolute_url }}">
-              {{ expense.name}}</a>
+              <i class="fas fa-circle" style="color: {{ expense.category.color }};"></i> &nbsp;
+              {{ expense.name}}
+            </a>
           </div>
           <div class="col p-2 text-end border-end border-bottom">
             {{ expense.created_at|date:"d/m/y h:i A" }}
