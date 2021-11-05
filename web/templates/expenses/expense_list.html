@@ -13,10 +13,10 @@
           </button>
         </h2>
         <div id="filterAccordion" class="accordion-collapse collapse" data-bs-parent="#actionAccordion">
-          <div class="accordion-body p-3">
+          <div class="accordion-body p-3 pb-0">
             <form action="" method="get">
               <div class="row">
-                <div class="col-sm input-group">
+                <div class="col-sm input-group mb-3">
                   <label class="input-group-text" for="id_categories">Categories</label>
                   {{ filter.form.categories }}
                 </div>
@@ -29,7 +29,7 @@
                     <label class="input-group-text" for="id_created_at">Time</label>
                     {{ filter.form.created_at }}
                   </div>
-                  <div class="d-grid">
+                  <div class="d-grid mb-3">
                     <div class="btn-group" role="group">
                       <button type="button" onclick="location.href=`{% url 'expenses-list' %}`"
                         class="btn btn-danger">Reset</button>
