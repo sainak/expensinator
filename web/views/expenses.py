@@ -2,11 +2,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from django_filters.views import FilterView
-
+from django.db import IntegrityError
 from expenses.models import Category, Expense
 
 from ..filters import ExpenseFilter
-from ..forms import AddExpenseForm
+from ..forms import AddCategoryForm, AddExpenseForm
 
 
 class ExpenseListView(LoginRequiredMixin, FilterView):
@@ -67,7 +67,7 @@ class CategoriesCreateView(LoginRequiredMixin, CreateView):
 
     template_name = "expenses/categories_create.html"
     model = Category
-    fields = ["name"]
+    form_class = AddCategoryForm
     success_url = reverse_lazy("categories-list")
     page_name = "New Category"
     extra_context = {
@@ -77,4 +77,9 @@ class CategoriesCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return super().form_valid(form)
+        try:
+            return super().form_valid(form)
+        except IntegrityError as e:
+            form.add_error("name", "Category already exists")
+            form["name"].field.widget.attrs["class"] += " is-invalid"
+            return self.form_invalid(form)

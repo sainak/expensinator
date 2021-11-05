@@ -6,16 +6,15 @@
   <div class="card shadow container-fixed container-fixed-md mt-0 mt-sm-4">
     <form class="p-3" action="" method="post">
       {% csrf_token %}
-      <input type="hidden" name="initial-created_at" value="2021-11-04 13:11:06" id="initial-id_created_at">
-      <input type="hidden" name="created_at" id="id_created_at">
+      {{ form.created_at }}
       <div class="mb-3">
-        <label for="id_name">Name:</label>
-        <input type="text" class="form-control" id="id_name" name="name" maxlength="50" required>
+        {{ form.name.label_tag }}
+        {{ form.name }}
       </div>
       <div class="row-sm">
         <div class="input-group mb-3">
           <span class="input-group-text">{{currency}}</span>
-          <input type="number" class="form-control" name="amount" step="0.01" id="id_amount" required>
+          {{ form.amount }}
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text"><i class="fa fa-calendar-alt"></i></span>
@@ -24,9 +23,10 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="id_categories">Categories:</label>
-        {{ form.categories }}
+        {{ form.category.label_tag }}
+        {{ form.category }}
       </div>
+      {{form.errors}}
       <div class="d-grid mb-3">
         <button type="submit" class="btn btn-primary ">
           <i class="fa fa-save"></i> &nbsp; SAVE
@@ -41,11 +41,15 @@
 {% block extra_scripts %}
 <script type="text/javascript">
   //intercept form submit and combine date and time
-  $('form').submit(function(e) {
-    var date = $('#id_created_at_date').val();
-    var time = $('#id_created_at_time').val();
-    var combined = date + ' ' + time;
-    $('#id_created_at').val(combined);
+  $('form').submit(function (e) {
+    let date = $('#id_created_at_date').val();
+    let time = $('#id_created_at_time').val();
+    let combined = date + ' ' + time;
+    if (combined != ' ') {
+      $('#id_created_at').val(combined);
+    }
+
   });
+  console.log('{{form.errors}}');
 </script>
 {% endblock %}

@@ -7,8 +7,15 @@
     <form class="p-3" action="" method="post">
       {% csrf_token %}
       <div class="mb-3">
-        <label for="id_name">Name:</label>
-        <input type="text" class="form-control" id="id_name" name="name" maxlength="50" required>
+        {{ form.name.label_tag }}
+        {{ form.name }}
+        <div id="validationServer03Feedback" class="invalid-feedback">
+          {{ form.name.errors.0 }}
+        </div>
+      </div>
+      <div class="mb-3">
+        {{ form.color.label_tag }}
+        {{ form.color }}
       </div>
       <div class="d-grid mb-3">
         <button type="submit" class="btn btn-primary ">
@@ -19,4 +26,3 @@
   </div>
 </div>
 {% endblock %}
-

@@ -1,6 +1,6 @@
-from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.views.generic import TemplateView
 
 
 class HomeView(TemplateView):

@@ -1,23 +1,18 @@
 from django import forms
-from django_filters import (
-    DateRangeFilter,
-    FilterSet,
-    ModelMultipleChoiceFilter,
-    OrderingFilter,
-)
+from django_filters import DateRangeFilter, FilterSet, ModelChoiceFilter, OrderingFilter
 
 from expenses.models import Category, Expense
 
 
-def categories(request):
+def get_categories(request):
     if request is None:
         return Category.objects.none()
     return Category.objects.filter(owner=request.user)
 
 
 class ExpenseFilter(FilterSet):
-    categories = ModelMultipleChoiceFilter(
-        queryset=categories,
+    category = ModelChoiceFilter(
+        queryset=get_categories,
         label="Category",
         widget=forms.SelectMultiple(attrs={"class": "form-select"}),
         distinct=True,
@@ -35,4 +30,4 @@ class ExpenseFilter(FilterSet):
 
     class Meta:
         model = Expense
-        fields = ("categories", "created_at")
+        fields = ("category", "created_at")

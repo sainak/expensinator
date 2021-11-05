@@ -13,6 +13,7 @@ class LCharField(models.CharField):
 
 class Category(models.Model):
     name = LCharField(max_length=50)
+    color = models.CharField(max_length=7, default="#000000")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -28,7 +29,7 @@ class Expense(models.Model):
     name = models.CharField(max_length=50)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    categories = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(default=now)
 
     def __str__(self):

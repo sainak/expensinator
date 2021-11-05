@@ -6,7 +6,7 @@ from expenses.models import Category, Expense
 
 class AnalyticsView(LoginRequiredMixin, ListView):
     template_name = "analytics/analytics_list.html"
-    context_object_name = 'categories'
+    context_object_name = "categories"
     page_name = "Analytics"
     extra_context = {
         "title": page_name,
@@ -19,5 +19,5 @@ class AnalyticsView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['expenses'] = Expense.objects.all()
+        context["expenses"] = Expense.objects.all()
         return context
