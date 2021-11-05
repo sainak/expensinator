@@ -31,7 +31,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
     template_name = "expenses/expense_create.html"
     form_class = AddExpenseForm
     success_url = reverse_lazy("expenses-list")
-    page_name = "New Expense"
+    page_name = "Add Expense"
     extra_context = {
         "title": page_name,
         "activeNavId": "navItemExpenses",

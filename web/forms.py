@@ -32,16 +32,21 @@ class AddExpenseForm(forms.ModelForm):
 
     error_css_class = "is-invalid"
     user = None
-    category = forms.ModelChoiceField(
-        queryset=Category.objects.filter(owner=user),
-        widget=forms.widgets.Select(attrs={"class": "form-select"}),
-        required=False,
-    )
 
     created_at = forms.CharField(
         widget=widgets.TextInput(attrs={"type": "hidden"}),
         initial=now,
     )
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super().__init__(*args, **kwargs)
+        category_field = self.fields["category"]
+        category_field.queryset = Category.objects.filter(owner=self.user)
+        category_field.widget.attrs["class"] = "form-select"
+        category_field.empty_label = ""
+        category_field.required = False
+
 
     class Meta:
         model = Expense
@@ -56,13 +61,10 @@ class AddExpenseForm(forms.ModelForm):
             "amount": forms.NumberInput(attrs={"class": "form-control"}),
         }
 
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop("user")
-        super().__init__(*args, **kwargs)
-
 
 class AddCategoryForm(forms.ModelForm):
     error_css_class = "is-invalid"
+
     class Meta:
         model = Category
         fields = (
