@@ -31,3 +31,19 @@ class ExpenseFilter(FilterSet):
     class Meta:
         model = Expense
         fields = ("category", "created_at")
+
+
+class AnalyticsFilter(FilterSet):
+    category = ModelChoiceFilter(
+        queryset=get_categories,
+        label="Category",
+        widget=forms.Select(attrs={"class": "form-select"}),
+        distinct=True,
+    )
+    created_at = DateRangeFilter(
+        widget=forms.Select(attrs={"class": "form-select"}), empty_label="All"
+    )
+
+    # class Meta:
+    #     model = Expense
+    #     fields = ("category", "created_at")

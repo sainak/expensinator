@@ -2,6 +2,50 @@
 
 {% block content_body %}
 
-{{ request.user }}
+<div class="d-flex justify-content-center align-items-center">
+  <div class="card shadow container-fixed container-fixed-md mt-0 mt-sm-4" style="padding:0;">
 
+    <canvas id="myChart"></canvas>
+
+
+  </div>
+</div>
+
+{{ g|json_script:"g_data" }}
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script type="text/javascript">
+  const g_data = JSON.parse($('#g_data').text());
+  let c_labels = []
+  let c_color = []
+  let c_amount = []
+
+  // iterate over g_data and split it in c_labels c_color c_amount
+  $.each(g_data, function (index, value) {
+    c_labels.push(value[0]);
+    c_color.push(value[1]);
+    c_amount.push(value[2]);
+  });
+
+  const data = {
+    labels: c_labels,
+    datasets: [{
+      label: 'Expenses',
+      data: c_amount,
+      backgroundColor: c_color,
+      hoverOffset: 4
+    }]
+  };
+  const config = {
+    type: 'doughnut',
+    data: data,
+  };
+  const myChart = new Chart(
+    $('#myChart'),
+    config
+  );
+</script>
 {% endblock %}

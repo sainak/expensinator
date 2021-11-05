@@ -3,8 +3,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.db.models import fields
 from django.forms import widgets
-from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
+
 from expenses.models import Category, Expense
 
 User = get_user_model()
@@ -46,7 +47,6 @@ class AddExpenseForm(forms.ModelForm):
         category_field.widget.attrs["class"] = "form-select"
         category_field.empty_label = ""
         category_field.required = False
-
 
     class Meta:
         model = Expense
