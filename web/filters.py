@@ -14,7 +14,7 @@ class ExpenseFilter(FilterSet):
     category = ModelChoiceFilter(
         queryset=get_categories,
         label="Category",
-        widget=forms.SelectMultiple(attrs={"class": "form-select"}),
+        widget=forms.Select(attrs={"class": "form-select"}),
         distinct=True,
     )
     o = OrderingFilter(
