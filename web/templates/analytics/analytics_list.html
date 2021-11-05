@@ -1,17 +1,23 @@
 {% extends "base.html" %}
 
 {% block content_body %}
-
 <div class="d-flex justify-content-center align-items-center">
   <div class="card shadow container-fixed container-fixed-md mt-0 mt-sm-4" style="padding:0;">
-    <div class="p-3">
-      <canvas id="categoriesChart"></canvas>
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <canvas id="categoriesChart"></canvas>
+        </div>
+        <div class="col">
+          filter form goes here
+        </div>
+      </div>
+      <div class="row">
+        <canvas id="lineChart"></canvas>
+      </div>
     </div>
   </div>
 </div>
-
-
-
 {% endblock %}
 
 
@@ -19,28 +25,42 @@
 {{ categoriesChartData|json_script:"categoriesChartData" }}
 {{ lineChartData|json_script:"lineChartData" }}
 <script type="text/javascript">
-  const categoriesChartData = JSON.parse($('#categoriesChartData').text());
-
-  const data = {
-    labels: categoriesChartData[0],
-    datasets: [{
-      label: 'Expenses',
-      data: categoriesChartData[2],
-      backgroundColor: categoriesChartData[1],
-      hoverOffset: 8
-    }]
-  };
-  const config = {
-    type: 'doughnut',
-    data: data,
-  };
+  const categoriesChartData = JSON.parse($("#categoriesChartData").text());
   const categoriesChart = new Chart(
-    $('#categoriesChart'),
-    config
+    $("#categoriesChart"),
+    {
+      type: "doughnut",
+      data: {
+        labels: categoriesChartData[0],
+        datasets: [{
+          label: "Expenses",
+          data: categoriesChartData[2],
+          backgroundColor: categoriesChartData[1],
+          hoverOffset: 8
+        }]
+      },
+    },
   );
 
+  const lineChartData = JSON.parse($("#lineChartData").text());
 
 
-  const lineChartData = JSON.parse($('#lineChartData').text());
+  const lineChart = new Chart(
+    $("#lineChart"),
+    {
+      type: 'line',
+      data: {
+        labels: [65, 59, 80, 81, 56, 55, 40],
+        datasets: [{
+          label: 'My First Dataset',
+          data: [65, 59, 80, 81, 56, 55, 40],
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        }]
+      },
+    }
+  );
+
 </script>
 {% endblock %}
