@@ -7,6 +7,7 @@
     <form class="p-3" action="" method="post">
       {% csrf_token %}
       <input type="hidden" name="initial-created_at" value="2021-11-04 13:11:06" id="initial-id_created_at">
+      <input type="hidden" name="created_at" id="id_created_at">
       <div class="mb-3">
         <label for="id_name">Name:</label>
         <input type="text" class="form-control" id="id_name" name="name" maxlength="50" required>
@@ -14,12 +15,12 @@
       <div class="row-sm">
         <div class="input-group mb-3">
           <span class="input-group-text">{{currency}}</span>
-          <input type="number" class="form-control" name="amount" step="0.01" required="" id="id_amount">
+          <input type="number" class="form-control" name="amount" step="0.01" id="id_amount" required>
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text"><i class="fa fa-calendar-alt"></i></span>
-          <input type="text" class="form-control" name="created_at" value="2021-11-04 13:11:06" required=""
-            id="id_created_at">
+          <input type="date" class="form-control" name="created_at-date" id="id_created_at_date">
+          <input type="time" class="form-control" name="created_at-time" id="id_created_at_time">
         </div>
       </div>
       <div class="mb-3">
@@ -39,23 +40,12 @@
 
 {% block extra_scripts %}
 <script type="text/javascript">
-  $(document).ready(function () {
-    $('#id_created_at').daterangepicker({
-      timePicker: true,
-      singleDatePicker: true,
-      startDate: moment().startOf('hour'),
-      endDate: moment().startOf('hour').add(32, 'hour'),
-      locale: {
-        format: 'YYYY-MM-DD HH:mm'
-      }
-    });
-  });
-
-  //intercept form submit and make created_at zone aware
-  $('form').submit(function () {
-    var created_at = $('#id_created_at').val();
-    var created_at_zone = moment(created_at).format('Z');
-    $('#initial-id_created_at').val(created_at + created_at_zone);
+  //intercept form submit and combine date and time
+  $('form').submit(function(e) {
+    var date = $('#id_created_at_date').val();
+    var time = $('#id_created_at_time').val();
+    var combined = date + ' ' + time;
+    $('#id_created_at').val(combined);
   });
 </script>
 {% endblock %}
