@@ -63,7 +63,7 @@
             {{ expense.created_at|date:"d/m/y h:i A" }}
           </div>
           <div class="col p-2 text-end border-bottom">
-            {{ expense.amount|floatformat:2 }}
+            {{ currency }} {{ expense.amount|floatformat:2 }}
           </div>
         </div>
       </div>
