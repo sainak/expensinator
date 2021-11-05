@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import IntegrityError
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView
 from django_filters.views import FilterView
-from django.db import IntegrityError
+
 from expenses.models import Category, Expense
 
 from ..filters import ExpenseFilter
@@ -23,7 +24,9 @@ class ExpenseListView(LoginRequiredMixin, FilterView):
     }
 
     def get_queryset(self):
-        return Expense.objects.filter(owner=self.request.user)
+        return Expense.objects.filter(owner=self.request.user).select_related(
+            "category"
+        )
 
 
 class ExpenseCreateView(LoginRequiredMixin, CreateView):
@@ -60,9 +63,7 @@ class CategoriesListView(LoginRequiredMixin, ListView):
     }
 
     def get_queryset(self):
-        return Category.objects.filter(owner=self.request.user).select_related(
-            "category"
-        )
+        return Category.objects.filter(owner=self.request.user)
 
 
 class CategoriesCreateView(LoginRequiredMixin, CreateView):
