@@ -12,4 +12,11 @@
     //set active nav item
     $("#{{ activeNavId }}").addClass("active").attr("aria-current", "page");
   });
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > 10) {
+      $("#mainNavBarContainer").addClass("shadow");
+    } else {
+      $("#mainNavBarContainer").removeClass("shadow");
+    }
+  });
 </script>
