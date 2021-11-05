@@ -55,7 +55,7 @@
       {% load tz %}
       {% localtime on %}
       {% for expense in expenses_list %}
-      <div class="border">
+      <div class="border mb-3 mb-sm-0">
         <div class="row ms-0 me-0">
           <div class="col-sm-7 p-2 border-bottom">
             <a class="text-decoration-none text-dark" href="{{ expense.get_absolute_url }}">
