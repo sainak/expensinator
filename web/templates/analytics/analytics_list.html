@@ -2,10 +2,10 @@
 
 {% block content_body %}
 <div class="d-flex justify-content-center align-items-center">
-  <div class="card shadow container-fixed container-fixed-md mt-0 mt-sm-4" style="padding:0;">
-    <div class="col">
+  <div class="card shadow container-fixed container-fixed-lg mt-0 mt-sm-4">
+    <div class="m-3">
       <div class="row">
-        <div class="col">
+        <div class="col-3 col-sm-0 p-3">
           <canvas id="categoriesChart"></canvas>
         </div>
         <div class="col">
@@ -22,8 +22,10 @@
 
 
 {% block extra_scripts %}
+
 {{ categoriesChartData|json_script:"categoriesChartData" }}
 {{ lineChartData|json_script:"lineChartData" }}
+
 <script type="text/javascript">
   const categoriesChartData = JSON.parse($("#categoriesChartData").text());
   const categoriesChart = new Chart(
@@ -43,22 +45,45 @@
   );
 
   const lineChartData = JSON.parse($("#lineChartData").text());
-
+  // iterate over lineChartData
+  // for each item, create a new dataset
+  const lineChartDataSets = [];
+  lineChartData.categories.map(function (item) {
+    const newDataset = {
+      label: item.label,
+      //multiply data.x by 1000 to convert to proper epoch time
+      data: item.data.map(function (data) {
+        return {
+          x: data.x * 1000,
+          y: data.y,
+        };
+      }),
+      borderColor: item.borderColor + "{{opacity}}",
+    };
+    lineChartDataSets.push(newDataset);
+  });
 
   const lineChart = new Chart(
     $("#lineChart"),
     {
       type: 'line',
       data: {
-        labels: [65, 59, 80, 81, 56, 55, 40],
-        datasets: [{
-          label: 'My First Dataset',
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
-        }]
+        datasets: lineChartDataSets
       },
+      options: {
+        scales: {
+          x: {
+            type: 'time',
+            ticks: {
+              source: 'data',
+            callback: (tick, index) => index === 0 ? undefined : tick,
+            },
+            time: {
+              unit: lineChartData.groupType,
+            },
+          },
+        }
+      }
     }
   );
 

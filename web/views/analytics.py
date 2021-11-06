@@ -2,8 +2,11 @@ from datetime import datetime, timedelta
 from typing import List, Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import QuerySet, Sum
+from django.db.models import QuerySet, Sum, F, Func
+from django.db.models.fields import DateField
+from django.db.models.functions import Trunc, Extract
 from django.views.generic import TemplateView
+from django.utils.timezone import get_current_timezone
 
 from expenses.models import Category, Expense
 
@@ -13,33 +16,50 @@ def get_graph_data(
     qs: QuerySet[Expense],
     end_date: datetime,
     start_date: Optional[datetime] = None,
-    group_type: Optional[str] = "date",
+    group_type: Optional[str] = "day",
 ):
     # quick sanity check
-    if group_type not in ["date", "month", "year"]:
+    if group_type not in ["day", "week", "quarter", "month", "year"]:
         return {}
-    group_type = f"created_at__{group_type}"
 
     if not start_date:
         start_date = end_date - timedelta(days=30)
 
-    data = {}
+    data = {
+        "groupType": group_type,
+        "categories": [],
+    }
     for category in categories:
         _qs = qs.filter(category=category).filter(
             created_at__gte=start_date,
             created_at__lte=end_date,
         )
-        chart_data = (
-            _qs.values(group_type)
-            .annotate(amount_sum=Sum("amount"))
-            .values_list(group_type, "amount_sum")
+        chart_data = list(
+            _qs.annotate(
+                date=Trunc(
+                    "created_at",
+                    group_type,
+                    output_field=DateField(),
+                    tzinfo=get_current_timezone(),
+                ),
+            )
+            .values("date")
+            .annotate(
+                x=Extract("date", "epoch"),
+                y=Sum("amount"),
+            )
+            .values("x", "y")
+            .order_by("x")
         )
-        data[category.name] = {
-            "color": category.color,
-            "total": _qs.aggregate(Sum("amount"))["amount__sum"],
-            "chart": list(zip(*chart_data)),
-        }
-
+        print(chart_data)
+        data["categories"].append(
+            {
+                "label": category.name,
+                "borderColor": category.color,
+                "total": _qs.aggregate(Sum("amount"))["amount__sum"],
+                "data": chart_data,
+            }
+        )
     return data
 
 
@@ -71,7 +91,7 @@ class AnalyticsView(LoginRequiredMixin, TemplateView):
         categories = Category.objects.filter(owner=self.request.user)
 
         context["lineChartData"] = get_graph_data(
-            categories, self.get_queryset(), end_date=datetime.now(), group_type="year"
+            categories, self.get_queryset(), end_date=datetime.now(), group_type="day"
         )
 
         return self.render_to_response(context)
