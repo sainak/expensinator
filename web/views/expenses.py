@@ -87,7 +87,7 @@ class ExpenseDeleteView(LoginRequiredMixin, View):
         )
 
     def post(self, request, *args, **kwargs):
-        id  = request.POST.get("id")
+        id = request.POST.get("id")
         expense = get_object_or_404(self.get_queryset(), pk=id)
         expense.delete()
         return HttpResponseRedirect(reverse_lazy("expenses-list"))
@@ -161,7 +161,7 @@ class CategoriesDeleteView(LoginRequiredMixin, View):
         return Category.objects.filter(owner=self.request.user)
 
     def post(self, request, *args, **kwargs):
-        id  = request.POST.get("id")
+        id = request.POST.get("id")
         category = get_object_or_404(self.get_queryset(), pk=id)
         category.delete()
         return HttpResponseRedirect(reverse_lazy("categories-list"))
