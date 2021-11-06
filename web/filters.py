@@ -1,14 +1,13 @@
 from django import forms
 from django.forms import widgets
+from django.utils.timezone import now, timedelta
 from django_filters import (
+    ChoiceFilter,
     DateRangeFilter,
     FilterSet,
     ModelChoiceFilter,
     OrderingFilter,
-    ChoiceFilter,
 )
-
-from django.utils.timezone import now, timedelta
 
 from expenses.models import Category, Expense
 

@@ -2,12 +2,12 @@ from datetime import datetime, timedelta
 from typing import List, Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import QuerySet, Sum, DateField
+from django.db.models import DateField, QuerySet, Sum
 from django.db.models.functions import Extract, Trunc
+from django.http.response import JsonResponse
 from django.utils.timezone import get_current_timezone, now
 from django.views.generic import TemplateView, View
 from django.views.generic.edit import FormMixin
-from django.http.response import JsonResponse
 
 from expenses.models import Category, Expense
 
