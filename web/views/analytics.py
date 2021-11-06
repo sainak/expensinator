@@ -2,11 +2,10 @@ from datetime import datetime, timedelta
 from typing import List, Optional
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import QuerySet, Sum, F, Func
-from django.db.models.fields import DateField
-from django.db.models.functions import Trunc, Extract
-from django.views.generic import TemplateView
+from django.db.models import QuerySet, Sum, DateField
+from django.db.models.functions import Extract, Trunc
 from django.utils.timezone import get_current_timezone
+from django.views.generic import TemplateView
 
 from expenses.models import Category, Expense
 
@@ -51,7 +50,6 @@ def get_graph_data(
             .values("x", "y")
             .order_by("x")
         )
-        print(chart_data)
         data["categories"].append(
             {
                 "label": category.name,
