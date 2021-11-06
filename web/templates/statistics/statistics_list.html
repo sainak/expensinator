@@ -26,7 +26,7 @@
             </div>
             <div class="d-grid mb-3">
               <div class="btn-group" role="group">
-                <button type="button" onclick="location.href=`{% url 'statistics-list' %}`"
+                <button type="button" onclick="resetLineChartData()"
                   class="btn btn-danger">Reset</button>
                 <button type="submit" class="btn btn-primary">Filter</button>
               </div>
@@ -85,6 +85,7 @@
   );
 
   function getLineChartData(requestData) {
+    console.log(requestData);
     $.ajax({
       url: "{% url 'statistics-data' %}",
       type: "GET",
@@ -114,30 +115,28 @@
   }
 
   function resetLineChartData() {
-    data = {
-      "start_date": $("#id_start_date").attr("value"),
-      "end_date": $("#id_end_date").attr("value"),
-      "data_scale": $("#id_data_scale").attr("value"),
+    const start_date = moment($("#id_start_date").attr("value")).format("YYYY-MM-DD");
+    const end_date = moment($("#id_end_date").attr("value")).format("YYYY-MM-DD");
+    getLineChartData({
+      "start_date": start_date,
+      "end_date": end_date,
+      "data_scale": "day",
       "categories": [],
-    };
-    getLineChartData(data)
+    });
   }
 
   $('form').submit(function (e) {
     e.preventDefault();
-    const formData = $(this).serializeArray();
-    let categories = [];
-    formData.map(function (item) {
-      if (item.name === "categories") {
-        categories.push(item.value);
-      }
+    const start_date = moment($("#id_start_date").val()).format("YYYY-MM-DD");
+    const end_date = moment($("#id_end_date").val()).format("YYYY-MM-DD");
+    const data_scale = $("#id_data_scale").val();
+    const categories = $("#id_categories").val();
+    getLineChartData({
+      "start_date": start_date,
+      "end_date": end_date,
+      "data_scale": data_scale,
+      "categories": categories,
     });
-    let data = {};
-    formData.map(function (item) {
-      data[item.name] = item.value;
-    });
-    data["categories"] = categories;
-    getLineChartData(data);
   });
 
   //get line chart data on document load
