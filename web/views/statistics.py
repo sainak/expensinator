@@ -61,10 +61,10 @@ def get_graph_data(
     return data
 
 
-class AnalyticsView(LoginRequiredMixin, TemplateView):
-    template_name = "analytics/analytics_list.html"
+class StatisticsView(LoginRequiredMixin, TemplateView):
+    template_name = "statistics/statistics_list.html"
     context_object_name = "categories"
-    page_name = "Analytics"
+    page_name = "Statistics"
     extra_context = {
         "title": page_name,
         "activeNavId": f"navItem{page_name}",

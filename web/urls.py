@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import analytics, auth, expenses, main
+from .views import statistics, auth, expenses, main
 
 urlpatterns = [
     path("", main.HomeView.as_view(), name="home"),
@@ -15,5 +15,5 @@ urlpatterns = [
         expenses.CategoriesCreateView.as_view(),
         name="categories-create",
     ),
-    path("analytics/", analytics.AnalyticsView.as_view(), name="analytics-list"),
+    path("statistics/", statistics.StatisticsView.as_view(), name="statistics-list"),
 ]
