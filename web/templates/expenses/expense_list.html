@@ -31,13 +31,13 @@
                     <label class="input-group-text" for="id_o">Sort</label>
                     {{ filter.form.o }}
                   </div>
-                    <div class="d-grid mb-3">
-                      <div class="btn-group" role="group">
-                        <button type="button" onclick="location.href=`{% url 'expenses-list' %}`"
-                          class="btn btn-danger">Reset</button>
-                        <button type="submit" class="btn btn-primary">Filter</button>
-                      </div>
+                  <div class="d-grid mb-3">
+                    <div class="btn-group" role="group">
+                      <button type="button" onclick="location.href=`{% url 'expenses-list' %}`"
+                        class="btn btn-danger">Reset</button>
+                      <button type="submit" class="btn btn-primary">Filter</button>
                     </div>
+                  </div>
                 </div>
               </div>
             </form>
@@ -62,7 +62,10 @@
               <i class="fas fa-circle" style="color: {{ expense.category.color }}{{ opacity }};"></i> &nbsp;
               {{ expense.name }}
             </a>
-            <a href="{% url 'expense-edit' pk=expense.id %}" class="float-end">
+            <a onclick="deleteItem('{{expense.id}}')" class="float-end ms-2">
+              <i class="fas fa-trash-alt" style="color:red"></i>
+            </a>
+            <a href="{% url 'expense-edit' pk=expense.id %}" class="float-end ms-2">
               <i class="fas fa-pencil-alt"></i>
             </a>
           </div>
@@ -81,6 +84,28 @@
   </div>
 </div>
 
+<div class="modal fade" tabindex="-1" id="confirmDelete">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Warning</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this expense?.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+        <form action="{% url 'expense-delete' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="id" id="expense_id" value="">
+          <button type="submit" class="btn btn-danger btn-ok">Delete</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% include "base_paginator.html" %}
 
 {% endblock content_body %}
@@ -90,5 +115,10 @@
   $(document).ready(function () {
     $('#id_o').addClass("form-select");
   });
+
+  function deleteItem(id) {
+    $('#expense_id').val(id);
+    $('#confirmDelete').modal('show');
+  }
 </script>
 {% endblock %}
