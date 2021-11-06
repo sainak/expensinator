@@ -16,4 +16,9 @@ urlpatterns = [
         name="categories-create",
     ),
     path("statistics/", statistics.StatisticsView.as_view(), name="statistics-list"),
+    path(
+        "statistics/data",
+        statistics.StatisticsDataView.as_view(),
+        name="statistics-data",
+    ),
 ]

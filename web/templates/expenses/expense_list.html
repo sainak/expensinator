@@ -18,7 +18,7 @@
               <div class="row">
                 <div class="col-sm">
                   <div class="input-group mb-3">
-                    <label class="input-group-text" for="id_categories">Category</label>
+                    <label class="input-group-text">Category</label>
                     {{ filter.form.category }}
                   </div>
                   <div class="input-group mb-3">
@@ -31,13 +31,13 @@
                     <label class="input-group-text" for="id_o">Sort</label>
                     {{ filter.form.o }}
                   </div>
-                  <div class="d-grid mb-3">
-                    <div class="btn-group" role="group">
-                      <button type="button" onclick="location.href=`{% url 'expenses-list' %}`"
-                        class="btn btn-danger">Reset</button>
-                      <button type="submit" class="btn btn-primary">Filter</button>
+                    <div class="d-grid mb-3">
+                      <div class="btn-group" role="group">
+                        <button type="button" onclick="location.href=`{% url 'expenses-list' %}`"
+                          class="btn btn-danger">Reset</button>
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                      </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </form>

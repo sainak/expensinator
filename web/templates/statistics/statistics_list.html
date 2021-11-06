@@ -2,14 +2,36 @@
 
 {% block content_body %}
 <div class="d-flex justify-content-center align-items-center">
-  <div class="card shadow container-fixed container-fixed-lg mt-0 mt-sm-4">
+  <div class="card shadow container-fixed container-fixed-lg mb-4 mt-0 mt-sm-4">
     <div class="m-3">
       <div class="row">
-        <div class="col-3 col-sm-0 p-3">
+        <div class="col col-sm-0 p-3 p-sm-5">
           <canvas id="categoriesChart"></canvas>
         </div>
-        <div class="col">
-          filter form goes here
+        <div class="col mt-sm-5">
+          <form>
+            <div class="input-group mb-3">
+              <!-- <span class="input-group-text"><i class="fas fa-chevron-right"></i></span> -->
+              {{ form.start_date }}
+              {{ form.end_date }}
+              <!-- <span class="input-group-text"><i class="fas fa-chevron-left"></i></span> -->
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text"><i class="fa-solid fa-chart-area"></i></i></span>
+              {{ form.data_scale }}
+            </div>
+            <div class="mb-3">
+              {{ form.categories.label_tag }}
+              {{ form.categories }}
+            </div>
+            <div class="d-grid mb-3">
+              <div class="btn-group" role="group">
+                <button type="button" onclick="location.href=`{% url 'statistics-list' %}`"
+                  class="btn btn-danger">Reset</button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
       <div class="row">
@@ -24,7 +46,6 @@
 {% block extra_scripts %}
 
 {{ categoriesChartData|json_script:"categoriesChartData" }}
-{{ lineChartData|json_script:"lineChartData" }}
 
 <script type="text/javascript">
   const categoriesChartData = JSON.parse($("#categoriesChartData").text());
@@ -37,54 +58,93 @@
         datasets: [{
           label: "Expenses",
           data: categoriesChartData[2],
-          backgroundColor: categoriesChartData[1],
-          hoverOffset: 8
+          backgroundColor: categoriesChartData[1].map(color => color + "{{opacity}}"),
+          hoverOffset: 4
         }]
       },
     },
   );
-
-  const lineChartData = JSON.parse($("#lineChartData").text());
-  // iterate over lineChartData
-  // for each item, create a new dataset
-  const lineChartDataSets = [];
-  lineChartData.categories.map(function (item) {
-    const newDataset = {
-      label: item.label,
-      //multiply data.x by 1000 to convert to proper epoch time
-      data: item.data.map(function (data) {
-        return {
-          x: data.x * 1000,
-          y: data.y,
-        };
-      }),
-      borderColor: item.borderColor + "{{opacity}}",
-    };
-    lineChartDataSets.push(newDataset);
-  });
 
   const lineChart = new Chart(
     $("#lineChart"),
     {
       type: 'line',
       data: {
-        datasets: lineChartDataSets
+        datasets: null
       },
       options: {
         scales: {
           x: {
             type: 'timeseries',
-            ticks: {
-              source: 'data',
-            },
-            time: {
-              unit: lineChartData.groupType,
-            },
+            ticks: { source: 'data' },
+            time: { unit: 'day' },
           },
         }
       }
     }
   );
+
+  function getLineChartData(requestData) {
+    $.ajax({
+      url: "{% url 'statistics-data' %}",
+      type: "GET",
+      data: requestData,
+      success: function (data) {
+        //lineChart.destroy();
+        const lineChartDataSets = [];
+        data.categories.map(function (item) {
+          const newDataset = {
+            label: item.label,
+            data: item.data.map((v) => ({
+              x: v.x * 1000,
+              y: v.y,
+            })),
+            borderColor: item.borderColor + "{{opacity}}",
+          };
+          lineChartDataSets.push(newDataset);
+        });
+        lineChart.data.datasets = lineChartDataSets;
+        lineChart.options.scales.x.time.unit = data.groupType;
+        lineChart.update();
+      },
+      error: function (data) {
+        console.log(data);
+      }
+    });
+  }
+
+  function resetLineChartData() {
+    data = {
+      "start_date": $("#id_start_date").attr("value"),
+      "end_date": $("#id_end_date").attr("value"),
+      "data_scale": $("#id_data_scale").attr("value"),
+      "categories": [],
+    };
+    getLineChartData(data)
+  }
+
+  $('form').submit(function (e) {
+    e.preventDefault();
+    const formData = $(this).serializeArray();
+    let categories = [];
+    formData.map(function (item) {
+      if (item.name === "categories") {
+        categories.push(item.value);
+      }
+    });
+    let data = {};
+    formData.map(function (item) {
+      data[item.name] = item.value;
+    });
+    data["categories"] = categories;
+    getLineChartData(data);
+  });
+
+  //get line chart data on document load
+  $(document).ready(function () {
+    resetLineChartData()
+  });
+
 
 </script>
 {% endblock %}
