@@ -73,10 +73,9 @@
       options: {
         scales: {
           x: {
-            type: 'time',
+            type: 'timeseries',
             ticks: {
               source: 'data',
-            callback: (tick, index) => index === 0 ? undefined : tick,
             },
             time: {
               unit: lineChartData.groupType,
