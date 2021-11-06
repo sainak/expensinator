@@ -95,7 +95,7 @@ class CategoriesListView(LoginRequiredMixin, ListView):
 
 class CategoriesCreateView(LoginRequiredMixin, CreateView):
 
-    template_name = "expenses/categories_create.html"
+    template_name = "expenses/categories_form.html"
     model = Category
     form_class = AddCategoryForm
     success_url = reverse_lazy("categories-list")
@@ -113,3 +113,28 @@ class CategoriesCreateView(LoginRequiredMixin, CreateView):
             form.add_error("name", "Category already exists")
             form["name"].field.widget.attrs["class"] += " is-invalid"
             return self.form_invalid(form)
+
+
+class CategoriesEditView(LoginRequiredMixin, UpdateView):
+
+        template_name = "expenses/categories_form.html"
+        model = Category
+        form_class = AddCategoryForm
+        success_url = reverse_lazy("categories-list")
+        page_name = "Edit Category"
+        extra_context = {
+            "title": page_name,
+            "activeNavId": "navItemCategories",
+        }
+
+        def get_queryset(self):
+            return Category.objects.filter(owner=self.request.user)
+
+        def form_valid(self, form):
+            form.instance.owner = self.request.user
+            try:
+                return super().form_valid(form)
+            except IntegrityError as e:
+                form.add_error("name", "Category already exists")
+                form["name"].field.widget.attrs["class"] += " is-invalid"
+                return self.form_invalid(form)

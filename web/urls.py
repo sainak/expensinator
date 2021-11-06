@@ -16,6 +16,11 @@ urlpatterns = [
         expenses.CategoriesCreateView.as_view(),
         name="categories-create",
     ),
+    path(
+        "categories/<int:pk>/",
+        expenses.CategoriesEditView.as_view(),
+        name="category-edit",
+    ),
     path("statistics/", statistics.StatisticsView.as_view(), name="statistics-list"),
     path(
         "statistics/data",
