@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 from django_filters.views import FilterView
 
 from expenses.models import Category, Expense
@@ -32,7 +32,7 @@ class ExpenseListView(LoginRequiredMixin, FilterView):
 
 class ExpenseCreateView(LoginRequiredMixin, CreateView):
 
-    template_name = "expenses/expense_create.html"
+    template_name = "expenses/expense_form.html"
     form_class = AddExpenseForm
     success_url = reverse_lazy("expenses-list")
     page_name = "Add Expense"
@@ -51,6 +51,31 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
+
+class ExpenseEditView(LoginRequiredMixin, UpdateView):
+    template_name = "expenses/expense_form.html"
+    form_class = AddExpenseForm
+    success_url = reverse_lazy("expenses-list")
+    page_name = "Edit Expense"
+    extra_context = {
+        "title": page_name,
+        "activeNavId": "navItemExpenses",
+        "currency": "₹",
+    }
+
+    def get_queryset(self):
+        return Expense.objects.filter(owner=self.request.user).select_related(
+            "category"
+        )
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({"user": self.request.user})
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
 class CategoriesListView(LoginRequiredMixin, ListView):
 

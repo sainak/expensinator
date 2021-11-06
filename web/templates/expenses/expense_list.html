@@ -60,7 +60,10 @@
           <div class="col-sm-7 p-2 border-bottom">
             <a class="text-decoration-none text-dark" href="{{ expense.get_absolute_url }}">
               <i class="fas fa-circle" style="color: {{ expense.category.color }}{{ opacity }};"></i> &nbsp;
-              {{ expense.name}}
+              {{ expense.name }}
+            </a>
+            <a href="{% url 'expense-edit' pk=expense.id %}" class="float-end">
+              <i class="fas fa-pencil-alt"></i>
             </a>
           </div>
           <div class="col p-2 text-end border-end border-bottom">
