@@ -34,9 +34,13 @@ class AddExpenseForm(forms.ModelForm):
     error_css_class = "is-invalid"
     user = None
 
-    created_at = forms.CharField(
-        widget=widgets.TextInput(attrs={"type": "hidden"}),
-        initial=now,
+    created_at = forms.SplitDateTimeField(
+        widget=widgets.SplitDateTimeWidget(
+            date_attrs={"class": "form-control", "type": "date"},
+            time_attrs={"class": "form-control", "type": "time"},
+            time_format="%H:%M",
+        ),
+        initial=now
     )
 
     def __init__(self, *args, **kwargs):

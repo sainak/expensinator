@@ -6,7 +6,6 @@
   <div class="card shadow container-fixed container-fixed-md mt-0 mt-sm-4">
     <form class="p-3" action="" method="post">
       {% csrf_token %}
-      {{ form.created_at }}
       <div class="mb-3">
         {{ form.name.label_tag }}
         {{ form.name }}
@@ -18,8 +17,7 @@
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text"><i class="fa fa-calendar-alt"></i></span>
-          <input type="date" class="form-control" name="created_at-date" id="id_created_at_date">
-          <input type="time" class="form-control" name="created_at-time" id="id_created_at_time">
+          {{ form.created_at }}
         </div>
       </div>
       <div class="mb-3">
@@ -40,16 +38,6 @@
 
 {% block extra_scripts %}
 <script type="text/javascript">
-  //intercept form submit and combine date and time
-  $('form').submit(function (e) {
-    let date = $('#id_created_at_date').val();
-    let time = $('#id_created_at_time').val();
-    let combined = date + ' ' + time;
-    if (combined != ' ') {
-      $('#id_created_at').val(combined);
-    }
-
-  });
   console.log('{{form.errors}}');
 </script>
 {% endblock %}
