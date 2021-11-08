@@ -12,3 +12,4 @@ media
 .envrc
 db_dump_*.json
 static/bootstrap/
+/staticfiles

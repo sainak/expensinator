@@ -1,10 +1,11 @@
+
 from django.contrib import admin
 
 from .models import Category, Expense
 
 
 @admin.register(Category)
-class Categoryadmin(admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "created_at")
 
 
