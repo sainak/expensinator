@@ -150,6 +150,11 @@ INTERNAL_IPS = [
     "localhost",
 ]
 
+CSP_DEFAULT_SRC = ("'none'",)
+CSP_STYLE_SRC = ("'self'", "cdnjs.cloudflare.com", "cdn.jsdelivr.net")
+CSP_SCRIPT_SRC = ("'self'", "cdnjs.cloudflare.com", "cdn.jsdelivr.net")
+CSP_FONT_SRC = ("'self'", "cdnjs.cloudflare.com", "cdn.jsdelivr.net")
+
 AUTH_USER_MODEL = "accounts.User"
 
 LOGIN_URL = "/login/"
@@ -158,4 +163,6 @@ if getenv("HEROKU_ENVIRONMENT"):
     import django_heroku
 
     django_heroku.settings(locals())
+    DEBUG = False
+    SECURE_SSL_REDIRECT = True
     CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com"]
