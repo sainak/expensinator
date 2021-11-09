@@ -19,17 +19,17 @@ def get_graph_data(
     qs: QuerySet[Expense],
     end_date: datetime,
     start_date: Optional[datetime] = None,
-    group_type: Optional[str] = "day",
+    scale_type: Optional[str] = "day",
 ):
     # quick sanity check
-    if group_type not in ["day", "week", "quarter", "month", "year"]:
+    if scale_type not in ["day", "week", "month", "quarter", "year"]:
         return {}
 
     if not start_date:
         start_date = end_date - timedelta(days=30)
 
     data = {
-        "groupType": group_type,
+        "scaleType": scale_type,
         "categories": [],
     }
     for category in categories:
@@ -41,7 +41,7 @@ def get_graph_data(
             _qs.annotate(
                 date=Trunc(
                     "created_at",
-                    group_type,
+                    scale_type,
                     output_field=DateField(),
                     tzinfo=get_current_timezone(),
                 ),
@@ -58,7 +58,7 @@ def get_graph_data(
             {
                 "label": category.name if category else "Uncategorized",
                 "borderColor": category.color if category else "#000000",
-                "total": _qs.aggregate(Sum("amount"))["amount__sum"],
+                #"total": _qs.aggregate(Sum("amount"))["amount__sum"],
                 "data": chart_data,
             }
         )
@@ -110,7 +110,7 @@ class StatisticsDataView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         end_date = self.request.GET.get("end_date", now())
         start_date = self.request.GET.get("start_date", None)
-        group_type = self.request.GET.get("data_scale", "day")
+        scale_type = self.request.GET.get("scale_type", "day")
         _categories = self.request.GET.getlist("categories[]")
 
         categories = []
@@ -131,7 +131,7 @@ class StatisticsDataView(LoginRequiredMixin, View):
                 categories,
                 self.get_queryset(),
                 end_date,
-                start_date,
-                group_type=group_type,
+                start_date=start_date,
+                scale_type=scale_type,
             )
         )

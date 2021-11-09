@@ -64,11 +64,12 @@ class StatisticsFilterForm(forms.Form):
         required=False,
     )
 
-    data_scale = forms.ChoiceField(
+    scale_type = forms.ChoiceField(
         choices=(
             ("day", "Day"),
             ("week", "Week"),
             ("month", "Month"),
+            ("quarter", "Quarter"),
             ("year", "Year"),
         ),
         widget=widgets.Select(attrs={"class": "form-select"}),

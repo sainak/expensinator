@@ -18,7 +18,7 @@
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text"><i class="fa-solid fa-chart-area"></i></i></span>
-              {{ form.data_scale }}
+              {{ form.scale_type }}
             </div>
             <div class="mb-3">
               {{ form.categories.label_tag }}
@@ -106,7 +106,7 @@
           lineChartDataSets.push(newDataset);
         });
         lineChart.data.datasets = lineChartDataSets;
-        lineChart.options.scales.x.time.unit = data.groupType;
+        lineChart.options.scales.x.time.unit = data.scaleType;
         lineChart.update();
         $("button[type=submit]").removeClass("disabled");
         $("button[type=submit] span").remove();
@@ -127,12 +127,12 @@
     e.preventDefault();
     const start_date = moment($("#id_start_date").val()).format("YYYY-MM-DD");
     const end_date = moment($("#id_end_date").val()).format("YYYY-MM-DD");
-    const data_scale = $("#id_data_scale").val();
+    const scale_type = $("#id_scale_type").val();
     const categories = $("#id_categories").val();
     getLineChartData({
       "start_date": start_date,
       "end_date": end_date,
-      "data_scale": data_scale,
+      "scale_type": scale_type,
       "categories": categories,
     });
   });
