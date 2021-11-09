@@ -26,9 +26,8 @@
             </div>
             <div class="d-grid mb-3">
               <div class="btn-group" role="group">
-                <button type="button" onclick="resetLineChartData()"
-                  class="btn btn-danger">Reset</button>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="button" onclick="resetLineChartData()" class="btn btn-danger">Reset</button>
+                <button type="submit" class="btn btn-primary">&nbsp;Filter</button>
               </div>
             </div>
           </form>
@@ -85,6 +84,8 @@
   );
 
   function getLineChartData(requestData) {
+    $("button[type=submit]").addClass("disabled")
+      .prepend('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
     console.log(requestData);
     $.ajax({
       url: "{% url 'statistics-data' %}",
@@ -107,22 +108,19 @@
         lineChart.data.datasets = lineChartDataSets;
         lineChart.options.scales.x.time.unit = data.groupType;
         lineChart.update();
+        $("button[type=submit]").removeClass("disabled");
+        $("button[type=submit] span").remove();
       },
       error: function (data) {
         console.log(data);
+        $("button[type=submit]").removeClass("disabled");
+        $("button[type=submit] span").remove();
       }
     });
   }
 
   function resetLineChartData() {
-    const start_date = moment($("#id_start_date").attr("value")).format("YYYY-MM-DD");
-    const end_date = moment($("#id_end_date").attr("value")).format("YYYY-MM-DD");
-    getLineChartData({
-      "start_date": start_date,
-      "end_date": end_date,
-      "data_scale": "day",
-      "categories": [],
-    });
+    getLineChartData({});
   }
 
   $('form').submit(function (e) {
@@ -139,11 +137,8 @@
     });
   });
 
-  //get line chart data on document load
   $(document).ready(function () {
-    resetLineChartData()
+    getLineChartData({});
   });
-
-
 </script>
 {% endblock %}
