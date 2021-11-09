@@ -1,5 +1,4 @@
 import graphene
-from graphene import relay
 from graphene_django import DjangoObjectType
 
 from expenses.models import Category, Expense
@@ -8,27 +7,24 @@ from expenses.models import Category, Expense
 class CategoryType(DjangoObjectType):
     class Meta:
         model = Category
-        fields = ("id", "name", "created_at")
+        fields = (
+            "id",
+            "name",
+            "color",
+            "created_at",
+        )
 
 
 class ExpenseType(DjangoObjectType):
-    # categories = graphene.List(
-    #     lambda: CategoryType
-    # )
-
     class Meta:
         model = Expense
         fields = (
             "id",
             "name",
             "amount",
-            # "categories",
+            "category",
             "created_at",
         )
-
-    # @classmethod
-    # def resolve_categories(expense, *args, **kwargs):
-    #     return expense.categories.all()
 
 
 class Query(graphene.ObjectType):
