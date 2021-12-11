@@ -4,13 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==4.0b1"
+django = "==4.0"
 django-cors-headers = "==3.10.0"
 django-debug-toolbar = "==3.2.2"
 django-filter = "==21.1"
 django-heroku = "==0.3.1"
-djangoql = "==0.15.4"
-psycopg2 = "==2.9.1"
+djangoql = "==0.16.0"
+psycopg2 = "==2.9.2"
 graphene-django = "==3.0.0b7"
 daphne = "*"
 twisted = {extras = ["http2", "tls"], version = "*"}
@@ -18,7 +18,7 @@ twisted = {extras = ["http2", "tls"], version = "*"}
 [dev-packages]
 ipython = "*"
 pre-commit = "*"
-black = "==21.9b0"
+black = "==21.12b0"
 isort = "*"
 
 [requires]
