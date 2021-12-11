@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = getenv("SECRET_KEY", "insecure")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv("DEBUG", "false").lower() == "true"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -163,6 +163,6 @@ if getenv("HEROKU_ENVIRONMENT"):
     import django_heroku
 
     django_heroku.settings(locals())
-    DEBUG = False
+    WHITENOISE_MANIFEST_STRICT = False
     SECURE_SSL_REDIRECT = True
     CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com"]
