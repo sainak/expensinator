@@ -9,7 +9,8 @@ from django.utils.timezone import get_current_timezone, now
 from django.views.generic import TemplateView, View
 from django.views.generic.edit import FormMixin
 
-from expenses.models import Category, Expense
+from expenses.models import Expense
+from categories.models import Category
 
 from ..filters import StatisticsFilterForm
 
@@ -58,7 +59,7 @@ def get_graph_data(
             {
                 "label": category.name if category else "Uncategorized",
                 "borderColor": category.color if category else "#000000",
-                #"total": _qs.aggregate(Sum("amount"))["amount__sum"],
+                # "total": _qs.aggregate(Sum("amount"))["amount__sum"],
                 "data": chart_data,
             }
         )

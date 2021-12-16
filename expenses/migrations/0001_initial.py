@@ -3,7 +3,7 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import expenses.models
+import categories.models
 
 
 class Migration(migrations.Migration):
@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", expenses.models.LCharField(max_length=50)),
+                ("name", categories.models.LCharField(max_length=50)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 (
                     "owner",
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=50)),
                 ("amount", models.DecimalField(decimal_places=2, max_digits=10)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
-                ("categories", models.ManyToManyField(to="expenses.Category")),
+                ("categories", models.ManyToManyField(to="categories.Category")),
                 (
                     "owner",
                     models.ForeignKey(

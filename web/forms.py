@@ -6,7 +6,8 @@ from django.forms import widgets
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
-from expenses.models import Category, Expense
+from expenses.models import Expense
+from categories.models import Category
 
 User = get_user_model()
 
@@ -40,7 +41,7 @@ class AddExpenseForm(forms.ModelForm):
             time_attrs={"class": "form-control", "type": "time"},
             time_format="%H:%M",
         ),
-        initial=now
+        initial=now,
     )
 
     def __init__(self, *args, **kwargs):

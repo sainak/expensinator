@@ -9,7 +9,8 @@ from django_filters import (
     OrderingFilter,
 )
 
-from expenses.models import Category, Expense
+from expenses.models import Expense
+from categories.models import Category
 
 
 def get_categories(request):

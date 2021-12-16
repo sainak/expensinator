@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View
 from django_filters.views import FilterView
 
-from expenses.models import Category, Expense
+from expenses.models import Expense
+from categories.models import Category
 
 from ..filters import ExpenseFilter
 from ..forms import AddCategoryForm, AddExpenseForm

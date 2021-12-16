@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django_filters",
     # local
     "accounts",
+    "categories",
     "expenses",
     "web",
     "api",
@@ -162,7 +163,7 @@ AUTH_USER_MODEL = "accounts.User"
 
 LOGIN_URL = "/login/"
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 if getenv("HEROKU_ENVIRONMENT"):
     DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
