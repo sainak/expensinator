@@ -6,14 +6,7 @@ from .views import expenses, main, statistics
 urlpatterns = [
     path("", main.HomeView.as_view(), name="home"),
     path("", include("accounts.urls.web")),
-    path("expenses/", expenses.ExpenseListView.as_view(), name="expenses-list"),
-    path("expenses/new/", expenses.ExpenseCreateView.as_view(), name="expenses-create"),
-    path("expenses/<int:pk>/", expenses.ExpenseEditView.as_view(), name="expense-edit"),
-    path(
-        "expense/delete/",
-        expenses.ExpenseDeleteView.as_view(),
-        name="expense-delete",
-    ),
+    path("", include("expenses.urls.web")),
     path("categories/", expenses.CategoriesListView.as_view(), name="categories-list"),
     path(
         "categories/new/",
