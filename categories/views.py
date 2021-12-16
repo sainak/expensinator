@@ -7,12 +7,12 @@ from django.views.generic import CreateView, ListView, UpdateView, View
 
 from categories.models import Category
 
-from ..forms import AddCategoryForm
+from .forms import AddCategoryForm
 
 
 class CategoriesListView(LoginRequiredMixin, ListView):
 
-    template_name = "expenses/categories_list.html"
+    template_name = "categories_list.html"
     paginate_by = 20
     context_object_name = "categories_list"
     page_name = "Categories"
@@ -28,7 +28,7 @@ class CategoriesListView(LoginRequiredMixin, ListView):
 
 class CategoriesCreateView(LoginRequiredMixin, CreateView):
 
-    template_name = "expenses/categories_form.html"
+    template_name = "categories_form.html"
     model = Category
     form_class = AddCategoryForm
     success_url = reverse_lazy("categories-list")
@@ -50,7 +50,7 @@ class CategoriesCreateView(LoginRequiredMixin, CreateView):
 
 class CategoriesEditView(LoginRequiredMixin, UpdateView):
 
-    template_name = "expenses/categories_form.html"
+    template_name = "categories_form.html"
     model = Category
     form_class = AddCategoryForm
     success_url = reverse_lazy("categories-list")
