@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from os import getenv
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -51,9 +53,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -159,10 +162,9 @@ AUTH_USER_MODEL = "accounts.User"
 
 LOGIN_URL = "/login/"
 
-if getenv("HEROKU_ENVIRONMENT"):
-    import django_heroku
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-    django_heroku.settings(locals())
-    WHITENOISE_MANIFEST_STRICT = False
+if getenv("HEROKU_ENVIRONMENT"):
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
     SECURE_SSL_REDIRECT = True
     CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com"]
