@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "accounts",
     "categories",
     "expenses",
+    "stats",
     "web",
     "api",
 ]
