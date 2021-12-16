@@ -3,8 +3,8 @@ from django.forms import widgets
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
-from expenses.models import Expense
 from categories.models import Category
+from expenses.models import Expense
 
 
 class AddExpenseForm(forms.ModelForm):

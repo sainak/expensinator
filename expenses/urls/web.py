@@ -7,7 +7,6 @@ from ..views import (
     ExpenseListView,
 )
 
-
 urlpatterns = [
     path("expenses/", ExpenseListView.as_view(), name="expenses-list"),
     path("expenses/new/", ExpenseCreateView.as_view(), name="expenses-create"),

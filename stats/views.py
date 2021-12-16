@@ -9,8 +9,8 @@ from django.utils.timezone import get_current_timezone, now
 from django.views.generic import TemplateView, View
 from django.views.generic.edit import FormMixin
 
-from expenses.models import Expense
 from categories.models import Category
+from expenses.models import Expense
 
 from .filters import StatisticsFilterForm
 

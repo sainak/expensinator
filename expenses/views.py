@@ -5,9 +5,9 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, View
 from django_filters.views import FilterView
 
-from .models import Expense
 from .filters import ExpenseFilter
 from .forms import AddExpenseForm
+from .models import Expense
 
 
 class ExpenseListView(LoginRequiredMixin, FilterView):

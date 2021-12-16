@@ -1,14 +1,9 @@
 from django import forms
-from django_filters import (
-    DateRangeFilter,
-    FilterSet,
-    ModelChoiceFilter,
-    OrderingFilter,
-)
+from django_filters import DateRangeFilter, FilterSet, ModelChoiceFilter, OrderingFilter
 
-from .models import Expense
 from categories.models import Category
 
+from .models import Expense
 
 
 def get_categories(request):

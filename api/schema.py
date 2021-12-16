@@ -1,8 +1,8 @@
 import graphene
 from graphene_django import DjangoObjectType
 
-from expenses.models import Expense
 from categories.models import Category
+from expenses.models import Expense
 
 
 class CategoryType(DjangoObjectType):
