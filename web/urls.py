@@ -1,10 +1,10 @@
 from django.urls import path
 from django.urls.conf import include
 
-from .views import main
+from .views import HomeView
 
 urlpatterns = [
-    path("", main.HomeView.as_view(), name="home"),
+    path("", HomeView.as_view(), name="home"),
     path("", include("accounts.urls.web")),
     path("", include("expenses.urls.web")),
     path("", include("categories.urls.web")),
