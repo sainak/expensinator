@@ -1,12 +1,11 @@
 from django.urls import path
+from django.urls.conf import include
 
-from .views import auth, expenses, main, statistics
+from .views import expenses, main, statistics
 
 urlpatterns = [
     path("", main.HomeView.as_view(), name="home"),
-    path("signup/", auth.SignUpView.as_view(), name="signup"),
-    path("login/", auth.LoginView.as_view(), name="login"),
-    path("logout/", auth.LogoutView.as_view(), name="logout"),
+    path("", include("accounts.urls.web")),
     path("expenses/", expenses.ExpenseListView.as_view(), name="expenses-list"),
     path("expenses/new/", expenses.ExpenseCreateView.as_view(), name="expenses-create"),
     path("expenses/<int:pk>/", expenses.ExpenseEditView.as_view(), name="expense-edit"),
