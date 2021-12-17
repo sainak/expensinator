@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # external
-    "graphene_django",
     "corsheaders",
     "djangoql",
     "debug_toolbar",
