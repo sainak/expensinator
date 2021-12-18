@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.db.models.functions import Lower
 
 
 class LCharField(models.CharField):
@@ -23,4 +24,8 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
-        unique_together = ("name", "owner")
+        constraints = [
+            models.UniqueConstraint(
+                Lower("name"), "owner", name="unique_category_name_owner"
+            )
+        ]
