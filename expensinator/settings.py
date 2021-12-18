@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # external
     "rest_framework",
+    "drf_spectacular",
     "corsheaders",
     "djangoql",
     "debug_toolbar",
@@ -162,6 +163,13 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
         "rest_framework.filters.OrderingFilter",
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Expensinator API',
+    'DESCRIPTION': '',
+    'VERSION': '1.0.0',
 }
 
 INTERNAL_IPS = [

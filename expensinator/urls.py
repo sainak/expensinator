@@ -22,15 +22,11 @@ from django.urls.conf import include
 admin.site.site_header = "Expensinator"
 admin.site.site_title = "Expensinator"
 
-api_urlpatterns = [
-    path("", include("accounts.urls.api")),
-]
-
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("web.urls")),
-    path("api/", include(api_urlpatterns)),
+    path("api/", include("api.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("__debug__/", include(debug_toolbar.urls)),
 ]
