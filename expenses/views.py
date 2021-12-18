@@ -4,6 +4,10 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, View
 from django_filters.views import FilterView
+from rest_framework.viewsets import ModelViewSet
+from expenses.serializers import ExpenseSerializer
+
+from expensinator.utils.mixins import ModelOwnerMixin
 
 from .filters import ExpenseFilter
 from .forms import AddExpenseForm
@@ -89,3 +93,8 @@ class ExpenseDeleteView(LoginRequiredMixin, View):
         expense = get_object_or_404(self.get_queryset(), pk=id)
         expense.delete()
         return HttpResponseRedirect(reverse_lazy("expenses-list"))
+
+
+class ExpenseApiViewset(ModelOwnerMixin, ModelViewSet):
+    serializer_class = ExpenseSerializer
+    queryset = Expense.objects.all()
