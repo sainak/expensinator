@@ -4,8 +4,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View
+from rest_framework.generics import ListCreateAPIView
 
 from categories.models import Category
+from categories.serializers import CategorySerializer
 
 from .forms import AddCategoryForm
 
@@ -82,3 +84,10 @@ class CategoriesDeleteView(LoginRequiredMixin, View):
         category = get_object_or_404(self.get_queryset(), pk=id)
         category.delete()
         return HttpResponseRedirect(reverse_lazy("categories-list"))
+
+
+class CategoryListApiView(ListCreateAPIView):
+    serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        return Category.objects.filter(owner=self.request.user)
