@@ -71,9 +71,10 @@ run: ## Runserver.
 
 ngrok: ## Run ngrok.
 	@echo "--> Starting server"
-	@python manage.py runserver --noreload 0.0.0.0:8001 &
+	@python manage.py runserver --noreload 0.0.0.0:8001 > /dev/null 2>&1 &
 	@echo "--> Starting ngrok"
-	@ngrok http 8001 --region=in &
+	@ngrok http 8001 --region=in --log=stdout > /dev/null 2>&1 &
+	@curl -s http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url' -r
 
 kill-ngrok: ## Kill ngrok.
 	#kill runserver
