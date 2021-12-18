@@ -1,12 +1,14 @@
-from django.contrib.auth import views as contrib_views
+from django.contrib.auth import get_user_model, views as contrib_views
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 
-from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny
+from expensinator.utils.mixins import PublicApiViewMixin
 
 from .forms import LoginForm, SignUpForm
 from .serializers import UserSerializer
+
+User = get_user_model()
 
 
 class SignUpView(CreateView):
@@ -36,7 +38,12 @@ class LogoutView(contrib_views.LogoutView):
     next_page = reverse_lazy("login")
 
 
-class UserSignUpApiView(CreateAPIView):
-    authentication_classes = ()
-    permission_classes = (AllowAny,)
+class UserSignUpApiView(PublicApiViewMixin, CreateAPIView):
     serializer_class = UserSerializer
+
+
+class UserProfileApiView(RetrieveAPIView):
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
