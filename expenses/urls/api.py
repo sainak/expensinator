@@ -1,9 +1,9 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 
 from ..views import ExpenseApiViewset
 
 
-router = DefaultRouter(trailing_slash=False)
-router.register(r"expenses", ExpenseApiViewset, basename="expenses")
+router = SimpleRouter(trailing_slash=False)
+router.register(r"expenses", ExpenseApiViewset, basename="api-expenses")
 
 urlpatterns = router.urls
