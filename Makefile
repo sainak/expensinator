@@ -33,9 +33,13 @@ init: check-pipenv check-direnv ## Setup Dev environment.
 	@yes n | cp -vipr sample.envrc .envrc
 	@direnv allow
 
-migration: ## Create migrations.
+migrations: ## Create migrations.
 	@echo "--> Creating migrations"
 	@python manage.py makemigrations
+
+rm-migrations: ## Delete all migrations files in migrations folder.
+	@echo "--> Removing migrations"
+	@find . -type f -path '**/migrations/**' -name '*.py' ! -name "__init__.py" -exec rm -f {} \;
 
 migrate: ## Migrate database.
 	@echo "--> Migrating database"
@@ -43,7 +47,7 @@ migrate: ## Migrate database.
 
 dump: ## Dump database.
 	@echo "--> Dumping database"
-	@python manage.py dumpdata accounts expenses > db_dump_$(shell date +%FT%T.%3N%Z).json
+	@python manage.py dumpdata accounts categories expenses > db_dump_$(shell date +%FT%T.%3N%Z).json
 
 clean-db: dump ## Clear database.
 	@echo "--> Dropping database"
