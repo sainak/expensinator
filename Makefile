@@ -51,7 +51,7 @@ dump: ## Dump database.
 
 clean-db: dump ## Clear database.
 	@echo "--> Dropping database"
-	@python manage.py dropdb
+	@python manage.py sqlflush | python manage.py dbshell
 
 loaddata: ## Load data from most recent db dump
 	@echo "--> Loading data from db dump"
@@ -60,7 +60,7 @@ loaddata: ## Load data from most recent db dump
 
 init-db: ## Create database.
 	@echo "--> Creating database"
-	@make migration migrate loaddata
+	@make migrations migrate loaddata
 
 reinit-db: clean-db init-db ## Re-initialize database.
 
