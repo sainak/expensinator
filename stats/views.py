@@ -15,6 +15,17 @@ from expenses.models import Expense
 from .filters import StatisticsFilterForm
 
 
+def get_pie_cart_data(expenses: QuerySet[Expense]) -> List[dict]:
+    cat_chart_data = list(
+        expenses.values("category")
+        .annotate(amount_sum=Sum("amount"))
+        .values_list("category__name", "category__color", "amount_sum")
+    )
+    if not cat_chart_data:
+        cat_chart_data = (("Uncategorized", "#000000", 0))
+    return list(zip(*cat_chart_data))
+
+
 def get_graph_data(
     categories: List[Category],
     qs: QuerySet[Expense],
@@ -59,7 +70,7 @@ def get_graph_data(
             {
                 "label": category.name if category else "Uncategorized",
                 "borderColor": category.color if category else "#000000",
-                # "total": _qs.aggregate(Sum("amount"))["amount__sum"],
+                "total": _qs.aggregate(Sum("amount")).get("amount__sum", 0),
                 "data": chart_data,
             }
         )
@@ -92,14 +103,7 @@ class StatisticsView(LoginRequiredMixin, FormMixin, TemplateView):
     def get(self, *args, **kwargs):
         context = self.get_context_data(**kwargs)
         expenses = self.get_queryset()
-        cat_chart_data = list(
-            expenses.values("category")
-            .annotate(amount_sum=Sum("amount"))
-            .values_list("category__name", "category__color", "amount_sum")
-        )
-        if not cat_chart_data:
-            cat_chart_data = [("Uncategorized", "#000000", 0)]
-        context["categoriesChartData"] = list(zip(*cat_chart_data))
+        context["categoriesChartData"] = get_pie_cart_data(expenses)
 
         return self.render_to_response(context)
 
