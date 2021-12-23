@@ -97,6 +97,8 @@ class StatisticsView(LoginRequiredMixin, FormMixin, TemplateView):
             .annotate(amount_sum=Sum("amount"))
             .values_list("category__name", "category__color", "amount_sum")
         )
+        if not cat_chart_data:
+            cat_chart_data = [("Uncategorized", "#000000", 0)]
         context["categoriesChartData"] = list(zip(*cat_chart_data))
 
         return self.render_to_response(context)

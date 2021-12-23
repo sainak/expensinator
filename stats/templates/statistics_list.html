@@ -57,7 +57,7 @@
         datasets: [{
           label: "Expenses",
           data: categoriesChartData[2],
-          backgroundColor: categoriesChartData[1].map(color => color + "{{opacity}}"),
+          backgroundColor: categoriesChartData[1]?.map(color => color + "{{opacity}}"),
           hoverOffset: 4
         }]
       },
