@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 
-
 admin.site.site_header = "Expensinator"
 admin.site.site_title = "Expensinator"
 

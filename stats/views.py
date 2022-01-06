@@ -22,7 +22,7 @@ def get_pie_cart_data(expenses: QuerySet[Expense]) -> List[dict]:
         .values_list("category__name", "category__color", "amount_sum")
     )
     if not cat_chart_data:
-        cat_chart_data = (("Uncategorized", "#000000", 0))
+        cat_chart_data = ("Uncategorized", "#000000", 0)
     return list(zip(*cat_chart_data))
 
 

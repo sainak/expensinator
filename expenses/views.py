@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, View
 from django_filters.views import FilterView
 from rest_framework.viewsets import ModelViewSet
-from expenses.serializers import ExpenseSerializer
 
+from expenses.serializers import ExpenseSerializer
 from expensinator.utils.mixins import ModelOwnerMixin
 
 from .filters import ExpenseFilter

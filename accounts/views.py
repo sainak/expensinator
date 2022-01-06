@@ -1,4 +1,5 @@
-from django.contrib.auth import get_user_model, views as contrib_views
+from django.contrib.auth import get_user_model
+from django.contrib.auth import views as contrib_views
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
