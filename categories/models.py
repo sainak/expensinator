@@ -2,13 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models.functions import Lower
 
-
-class LCharField(models.CharField):
-    def __init__(self, *args, **kwargs):
-        super(LCharField, self).__init__(*args, **kwargs)
-
-    def get_prep_value(self, value):
-        return str(value).lower()
+from expensinator.utils.fields import LCharField
 
 
 class Category(models.Model):
