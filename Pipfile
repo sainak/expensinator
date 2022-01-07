@@ -4,24 +4,24 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==4.0"
-django-cors-headers = "==3.10.1"
-django-debug-toolbar = "==3.2.4"
-django-filter = "==21.1"
-djangoql = "==0.16.0"
-psycopg2 = "==2.9.2"
-daphne = "==3.0.2"
-twisted = {extras = ["http2", "tls"], version = "==21.7.0"}
-whitenoise = "==5.3.0"
-dj-database-url = "==0.5.0"
-djangorestframework = "==3.13.1"
+django = "*"
+django-cors-headers = "*"
+django-debug-toolbar = "*"
+django-filter = "*"
+djangoql = "*"
+psycopg2 = "*"
+daphne = "*"
+twisted = {extras = ["http2", "tls"], version = "*"}
+whitenoise = "*"
+dj-database-url = "*"
+djangorestframework = "*"
 drf-spectacular = "*"
-djangorestframework-simplejwt = "==5.0.0"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 ipython = "*"
 pre-commit = "*"
-black = "==21.12b0"
+black = "*"
 isort = "*"
 
 [requires]
