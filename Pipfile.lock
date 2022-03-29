@@ -207,11 +207,11 @@
         },
         "drf-spectacular": {
             "hashes": [
-                "sha256:4fd4b6b2913f4d82471b592e710f5ce1c57c4cd388eabe0c70e35516ab544aae",
-                "sha256:e61d0273c370a9f14944a5072c312eee5407becdfce80ecbe81ef687ccc9365e"
+                "sha256:1d6bf33f57ec7d973a7a29a4976fab602333e0bcd0ab16fd3b4cd1e7b427613d",
+                "sha256:229c3dcc5f88275e4742078d4003638970db5382caa16d53c0b3b42b62b1c034"
             ],
             "index": "pypi",
-            "version": "==0.21.1"
+            "version": "==0.22.0"
         },
         "h2": {
             "hashes": [
