@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "586b6a3d9690c970d723439e1fbfdb493d491b39014eeffb3f372a4e78a8ff41"
+            "sha256": "01130396df82cf495370c28423c43e89347b09183c01d09c8e58e816aef0c2f5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -199,11 +199,11 @@
         },
         "djangorestframework-simplejwt": {
             "hashes": [
-                "sha256:30b10e7732395c44d21980f773214d2b9bdeadf2a6c6809cd1a7c9abe272873c",
-                "sha256:ddcbeef51155d1e71410dde44b581c7e04cfb74776f5337661ac3ef4c0c367e6"
+                "sha256:75323528a7b910843b879194746f0ebc3481c4ad9f354de2dd162160662fb95a",
+                "sha256:cd3ee3aabdc98de104957c136e74ba2a16571b151c88ecd97421fce171a03ea4"
             ],
             "index": "pypi",
-            "version": "==5.0.0"
+            "version": "==5.1.0"
         },
         "drf-spectacular": {
             "hashes": [
